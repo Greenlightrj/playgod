@@ -1,0 +1,34 @@
+1. Background and context
+  What information about your project does the audience need to participate fully in the technical review? You should   share enough to make sure your audience understands the questions you are asking, but without going into unnecessary   detail.
+
+  We are creating a game that simulates evolution due to natural selection. The player manipulates how the species evolves by changing the environment surrounding the organism. Each organism has certain vital stats that determine its ability to survive (or not survive) in the environment. The game’s goal will be to evolve the organism to a particular set of stats (this goal is subject to change). We are also considering adding multiple species to include effects such as coevolution.
+  We are using pygame and the model/view/controller architecture. We are also possibly including matlab for python and DEAP for the evolutionary algorithm and the ability to display graphs of the stats of populations.
+Currently we are considering both the possibility of representing only organisms, each with their own stats or having graphs/averages of numbers showing the stats of the species population and only having some of the total population represented in the actual user interface.
+
+2. Key questions
+  What do you want to learn from the review? What are the most important decisions your team is currently contemplatin   g? Where might an outside perspective be most helpful? As you select key questions to ask during the review, bear in   mind both the time limitations and background of your audience.
+
+  From the review we would like to learn what a user is expecting from a game and what kind of user interface they would prefer. We also want to know what their minimum requirements for a game would be. We would also happily receive any recomendations as to how to best structure the game design wise especially regarding overwhelming sizes of populations if we use numbers anywhere close to realistic, because taking the time to calculate the genes of large populations might slow the game down.
+
+  The most important questions we are currently contemplating are how to implement the evolutionary algorithm and how large to make our species sizes/whether to show all or just a selection as this will influence how to code attributes and evolution. It is also important to determine how the environment can be manipulated by the user and how this will interact with the evolutionary algorithm.
+ 
+Questions:
+-What would be your minimum requirements for this game?
+-What features would you like to see?
+-What recommendations do you have for the user interface in regards to representing the species?
+-What recommendations do you have for the user interface in regards to manipulating the environment?
+-Do you have any recommendations as to how to structure this?
+
+
+3.Agenda for technical review session
+  Be specific about how you plan to use your allotted time. What strategies will you use to communicate with your       audience?
+25 minutes total
+10 presentation
+10 minutes of discussion/brainstorming
+5 minutes pulling it all together, asking final questions
+
+Strategies:
+-Post-it notes for ideation during presentation and discussion so they can write down questions/ideas as they think of them
+-Interactive on the whiteboard even during initial presentation
+-Have one of our team members taking notes on feedback we receive, maybe on a computer
+
