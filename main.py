@@ -6,9 +6,12 @@ I'm trying to add lots of helpful comments, delete them if they're redundant
 """
 # modules
 import pygame
+from pygame.locals import RESIZABLE 
 
 # other files
 import bugs
+import noms
+import rawrs
 
 
 class Main():
@@ -32,13 +35,14 @@ class Main():
         # initialize end condition
         self.done = False
 
-    def mainLoop(self):
+    def mainLoop(self, window):
         """
         The main game loop
         """
         # runs until player closes program
         while not self.done:
             self.controller.checkinput()
+            self.model.update(m)
             self.view.redraw()
             # tick time forward at a constant rate
             self.clock.tick(60)
@@ -55,15 +59,18 @@ class Model():
     def __init__(self):
         # creates our list of bugs
         self.buglist = bugs.BugList()
+        self.nomlist = noms.NomList()
+        self.rawrlist = rawrs.RawrList()
 
-    def update(self):
+    def update(self, window):
         """
         general update function
         will contain list of other model update methods in proper order
         probably our evolutionary algorithms and stuff
         like view.redraw
         """
-        pass
+        for bug in self.buglist:
+            bug.update(window)
 
 
 class View():
@@ -72,13 +79,13 @@ class View():
     The View Class: creates the view on the screen
     """
 
-    def __init__(self):
+    def __init__(self, width = 500, height = 500):
         # set screen size
-        self.width = 500
-        self.height = 500
-        self.size = (self.width, self.height)
+        self.width = width
+        self.height = height 
+        self.screensize = (self.width, self.height)
         # create screen object
-        self.screen = pygame.display.set_mode(self.size)
+        self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
         # define colors for later use in drawing
         self.black = [0, 0, 0]
 
@@ -89,17 +96,21 @@ class View():
         #fill background first
         self.screen.fill(self.black)
         #draw bugs on top
-        self.drawbugs()
+        self.drawbugs(m)
         #actually show all that stuff
         pygame.display.flip()
 
-    def drawbugs(self):
+    def drawbugs(self, window):
         """
         draws bugs according to their genome
         imported from bugs.py
         """
+        for nom in m.model.nomlist:
+            noms.Nom.draw(nom, m)
+        for rawr in m.model.rawrlist:
+            rawrs.Nom.draw(nom, m)
         for bug in m.model.buglist:
-            bugs.Bug.drawbug(bug, m)
+            bugs.Bug.draw(bug, m)
 
 
 class Controller():
@@ -121,11 +132,18 @@ class Controller():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     m.done = True
-            # user left-clicking creates an instance of the bug class
+            # user left-clicking creates an instance of the bug class where clicked
+            # right click creates food
+            # center click creates predator
+            # later, implement a button-press to place these.
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]:
-                    bugs.Bug(m)
+                    bugs.Bug(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
+                elif pygame.mouse.get_pressed()[1]:
+                    rawrs.Rawr(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
+                elif pygame.mouse.get_pressed()[2]:
+                    noms.Nom(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
 
 if __name__ == "__main__":
     m = Main()
-    m.mainLoop()
+    m.mainLoop(m)
