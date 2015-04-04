@@ -6,7 +6,8 @@ I'm trying to add lots of helpful comments, delete them if they're redundant
 """
 # modules
 import pygame
-from pygame.locals import RESIZABLE 
+from pygame.locals import RESIZABLE
+import random
 
 # other files
 import bugs
@@ -62,6 +63,38 @@ class Model():
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
 
+    def eating(self, window):
+        """
+        checks for collisions between bugs and noms, and rawrs and noms
+        """
+        for bug in self.buglist:
+            prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
+            for nom in prey:
+                if bug.hunting < nom.toughness and random.random() < 0.5:
+                    bug.kill()
+                else:
+                    if bug.hunger > 30:
+                        bug.hunger -= 30
+                    else:
+                        bug.hunger = 1
+                    nom.kill()
+
+
+        for rawr in self.rawrlist:
+            prey = pygame.sprite.spritecollide(rawr, self.buglist, 0, collided = None)
+            for bug in prey:
+                if rawr.hunger > 30:
+                    rawr.hunger -= 30
+                else:
+                    rawr.hunger = 1
+                bug.kill()
+
+    def mating(self, window):
+        for bug in self.buglist:
+            #may return list??
+            mate = pygame.sprite.spritecollide(bug, self.buglist, 0, collided = None)
+            bug.breed(mate)
+
     def update(self, window):
         """
         general update function
@@ -69,8 +102,15 @@ class Model():
         probably our evolutionary algorithms and stuff
         like view.redraw
         """
+        for nom in self.nomlist:
+            nom.update(window)
+        for rawr in self.rawrlist:
+            rawr.update(window)
         for bug in self.buglist:
             bug.update(window)
+        self.eating(window)
+        self.mating(window)
+
 
 
 class View():
@@ -105,12 +145,10 @@ class View():
         draws bugs according to their genome
         imported from bugs.py
         """
-        for nom in m.model.nomlist:
-            noms.Nom.draw(nom, m)
-        for rawr in m.model.rawrlist:
-            rawrs.Nom.draw(nom, m)
-        for bug in m.model.buglist:
-            bugs.Bug.draw(bug, m)
+        window.model.nomlist.draw(self.screen)
+        window.model.rawrlist.draw(self.screen)
+        for bug in window.model.buglist:
+            bugs.Bug.draw(bug, window)
 
 
 class Controller():

@@ -1,0 +1,20 @@
+
+Tasks to do. 
+Put your name next to what you plan to do. 
+Remove item from list when done.
+
+MVP
+clean up results of messily smushing code together, comment code- RJ
+make noms and rawrs spawn randomly - RJ
+make bugs and rawrs starve - RJ
+implement bugs.breed() - Caz
+ability to change environment
+make the noms' detection and running away dependent on the bug's difference from background
+make the rawrs' detection and chasing dependent on the bug's difference from background
+
+
+Frills
+Title screen
+Buttons to place each type of item
+sliders?
+speciation?
