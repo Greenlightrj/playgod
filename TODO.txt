@@ -6,11 +6,11 @@ Remove item from list when done.
 MVP
 clean up results of messily smushing code together, comment code- RJ
 make noms and rawrs spawn randomly - RJ
-make bugs' chance of being killed by nom more dependent on the stat difference.
+make bugs' chance of being killed by nom more dependent on the stat difference. - Caz
 implement bugs.breed() - Caz
 ability to change environment
-make the noms' detection and running away dependent on the bug's difference from background
-make the rawrs' detection and chasing dependent on the bug's difference from background
+make the noms' detection and running away dependent on the bug's difference from background - Caz
+make the rawrs' detection and chasing dependent on the bug's difference from background - Caz
 
 
 Frills
