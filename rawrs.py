@@ -10,9 +10,9 @@ from math import sin, cos, hypot, atan2
 class Rawr(pygame.sprite.Sprite):
     """
     inherited methods:
-    .update (see below)
-    .kill (removes from all groups)
-    .alive  (checks to see if belonging to any groups)
+    _.update() (see below)
+    _.kill() (removes from all groups)
+    _.alive()  (checks to see if belonging to any groups)
     """
     def __init__(self, x, y, window):
         """
@@ -43,17 +43,17 @@ class Rawr(pygame.sprite.Sprite):
 
     def hunt(self, window):
         """
-        lets dino track toward humans within range
-        range is based on hunger
+        lets rawr track toward bugs within range
+        range is based on hunger and sexiness of bug
         """
         for bug in window.model.buglist:
-            if hypot(self.x - bug.x, self.y - bug.y) < self.hunger*5:
+            if hypot(self.x - bug.x, self.y - bug.y)*max(bug.sexiness)*2 < self.hunger*5:
                 self.angle = 100*atan2(bug.y - self.y, bug.x - self.x)
 
     def walk(self, window):
         """
-        updates position of dinosaur based on speed
-        makes dinosaur bounce off walls
+        updates position of rawr based on speed
+        makes rawr bounce off walls
         """
         if self.x > window.view.width - self.width:             # bounce off right edge
             self.angle = random.randrange(157,471)
@@ -72,7 +72,7 @@ class Rawr(pygame.sprite.Sprite):
 
     def starve(self, window):
         """
-        updates dinosaur hunger
+        updates rawr hunger
         """
         if self.hunger < 30:
             #self.health = window.view.dkgrn
@@ -88,7 +88,7 @@ class Rawr(pygame.sprite.Sprite):
 
     def reaper(self, window):
         """
-        gets rid of dead dinosaurs
+        gets rid of dead rawrs
         """
         if self.living is False:
             self.kill()

@@ -37,18 +37,18 @@ class Nom(pygame.sprite.Sprite):
         self.rect.y = y
 
     #def draw(self, window):
-        #pygame.draw.rect(window.view.screen, self.color, [self.x, self.y, 5, 5])
+        #pygame.draw.rect(window.view.screen, self.color, [self.x,self.y,5,5])
 
     def flee(self, window):
         """
         prey runs from nearest bug
         """
-        if len(window.model.buglist) > 0:     #if there are any dinos
-            dist = 0
+        if len(window.model.buglist) > 0:     #if there are any bugs
+            dist = 100
             nearest = 0
             for bug in window.model.buglist:
                 if hypot(bug.x - self.x, bug.y - self.y) < dist:
-                    dist = hypot(bug.x - self.x, bug.y - self.y)
+                    dist = max(bug.sexiness)*hypot(bug.x - self.x, bug.y - self.y)
                     nearest = bug
             if nearest:
                 self.angle = 100*atan2(self.y - nearest.y, self.x - nearest.x)
@@ -83,3 +83,32 @@ class NomList(pygame.sprite.Group):
     """
     all inherited
     """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

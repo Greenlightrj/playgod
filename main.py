@@ -91,9 +91,23 @@ class Model():
 
     def mating(self, window):
         for bug in self.buglist:
-            #may return list??
+            #remove the bug so it doesn't mate with itself
+            self.buglist.remove(bug)
             mate = pygame.sprite.spritecollide(bug, self.buglist, 0, collided = None)
-            bug.breed(mate)
+            if mate == []:
+                self.buglist.add(bug)
+            else:
+                if bug.readyToMate == 1 and mate[0].readyToMate == 1:
+                    willTheyWontThey = max(bug.sexiness) + max(mate[0].sexiness)
+                    if willTheyWontThey > 3*random.random():
+                        newBug = bug.breed(mate[0], m)
+                        self.buglist.add(newBug)
+                        #set hunger lower or else bugs create infinite energy by having babies
+                        newBug.hunger = max(bug.hunger, mate[0].hunger)
+                        bug.readyToMate = 0.0
+                        mate[0].readyToMate = 0.0
+                self.buglist.add(bug)
+            
 
     def update(self, window):
         """
