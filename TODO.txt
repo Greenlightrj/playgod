@@ -33,3 +33,5 @@ Discussion
     Long legs are currently *very* strongly selected for, while a bug can survive with not-so-good scores on the other traits. Should this be balanced?
 
     Should sexiness also affect the time a bug must wait before being ready to breed?
+
+    Would be interesting if bugs went toward sexy bugs when ready to mate.
