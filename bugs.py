@@ -82,9 +82,15 @@ class Bug(pygame.sprite.Sprite):
         """
         bug tracks toward noms within range.
         """
+        dist = 100
+        nearest = False
         for nom in window.model.nomlist:
-            if hypot(self.x - nom.x, self.y - nom.y) < 100:
-                self.angle = 100*atan2(nom.y - self.y, nom.x - self.x)
+            far = hypot(self.x - nom.x, self.y - nom.y)
+            if far < dist:
+                nearest = nom
+                dist = far
+        if nearest:
+            self.angle = 100*atan2(nearest.y - self.y, nearest.x - self.x)
 
 
     def flee(self, window):

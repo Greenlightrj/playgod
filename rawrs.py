@@ -47,9 +47,14 @@ class Rawr(pygame.sprite.Sprite):
         range is based on hunger and sexiness of bug
         """
         dist = 600
+        nearest = False
         for bug in window.model.buglist:
-            if hypot(self.x - bug.x, self.y - bug.y)*max(bug.sexiness)*2 < dist:
-                self.angle = 100*atan2(bug.y - self.y, bug.x - self.x)
+            far = hypot(self.x - bug.x, self.y - bug.y)*max(bug.sexiness)*2
+            if far < dist:
+                nearest = bug
+                dist = far
+        if nearest:
+            self.angle = 100*atan2(nearest.y - self.y, nearest.x - self.x)
 
     def walk(self, window):
         """

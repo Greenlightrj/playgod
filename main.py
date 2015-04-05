@@ -63,8 +63,10 @@ class Model():
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
         # these rates are the number of milliseconds between automatic spawning
-        self.nomrate = 50
-        self.rawrrate = 1500
+        self.nomrate = 500
+        self.nomtime = 0
+        self.rawrrate = 15000
+        self.rawrtime = 0
 
     def eating(self, window):
         """
@@ -81,7 +83,6 @@ class Model():
                     else:
                         bug.hunger = 1
                     nom.kill()
-
 
         for rawr in self.rawrlist:
             prey = pygame.sprite.spritecollide(rawr, self.buglist, 0, collided = None)
@@ -111,11 +112,15 @@ class Model():
                         mate[0].readyToMate = 0.0
                 self.buglist.add(bug)
     
-    def spawning(self,window):
-        if pygame.time.get_ticks() % self.nomrate == 0 and len(window.model.nomlist) < 100:
+
+    def spawning(self, window):
+        if pygame.time.get_ticks() - self.nomtime > self.nomrate and len(window.model.nomlist) < 100:
             noms.Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
-        if pygame.time.get_ticks() % self.rawrrate == 0 and len(window.model.rawrlist) < 10:
+            self.nomtime = pygame.time.get_ticks()
+
+        if pygame.time.get_ticks() - self.rawrtime > self.rawrrate and len(window.model.rawrlist) < 10:
             rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
+            self.rawrtime = pygame.time.get_ticks()
 
     def update(self, window):
         """
