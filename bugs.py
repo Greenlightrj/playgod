@@ -125,14 +125,7 @@ class Bug(pygame.sprite.Sprite):
         """
         updates bug hunger
         """
-        if self.hunger < 30:
-            #self.health = window.view.dkgrn
-            self.hunger += 0.1
-        elif self.hunger < 75:
-            #self.health = window.view.orange
-            self.hunger += 0.1
-        elif self.hunger < 100:
-            #self.health = window.view.red
+        if self.hunger < 100:
             self.hunger += 0.1
         else:
             self.living = False
@@ -146,6 +139,9 @@ class Bug(pygame.sprite.Sprite):
             self.kill()
 
     def update(self, window):
+        """
+        calls all bug-updating methods in the proper order
+        """
         self.hunt(window)
         self.flee(window)
         self.walk(window)
@@ -157,7 +153,9 @@ class Bug(pygame.sprite.Sprite):
              self.readyToMate = self.readyToMate + 0.005
 
     def getGenes(self):
-        """gets a random one of each the Animal's genes and returns them as a list [sexiness, fleeing, hunting]"""
+        """
+        gets a random one of each the Animal's genes and returns them as a list [sexiness, fleeing, hunting]
+        """
         geneList = []
 
         if random.random() < 0.5:

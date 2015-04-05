@@ -42,8 +42,8 @@ class Main():
         """
         # runs until player closes program
         while not self.done:
-            self.controller.checkinput()
-            self.model.update(m)
+            self.controller.checkinput(window)
+            self.model.update(window)
             self.view.redraw()
             # tick time forward at a constant rate
             self.clock.tick(60)
@@ -62,6 +62,9 @@ class Model():
         self.buglist = bugs.BugList()
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
+        # these rates are the number of milliseconds between automatic spawning
+        self.nomrate = 50
+        self.rawrrate = 1500
 
     def eating(self, window):
         """
@@ -107,7 +110,12 @@ class Model():
                         bug.readyToMate = 0.0
                         mate[0].readyToMate = 0.0
                 self.buglist.add(bug)
-            
+    
+    def spawning(self,window):
+        if pygame.time.get_ticks() % self.nomrate == 0 and len(window.model.nomlist) < 100:
+            noms.Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
+        if pygame.time.get_ticks() % self.rawrrate == 0 and len(window.model.rawrlist) < 10:
+            rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
 
     def update(self, window):
         """
@@ -124,6 +132,7 @@ class Model():
             bug.update(window)
         self.eating(window)
         self.mating(window)
+        self.spawning(window)
 
 
 
@@ -175,7 +184,7 @@ class Controller():
         #unused so far
         pass
 
-    def checkinput(self):
+    def checkinput(self, window):
         for event in pygame.event.get():
             # user clicking 'x' button in corner of window ends the main loop
             if event.type == pygame.QUIT:
@@ -195,6 +204,10 @@ class Controller():
                     rawrs.Rawr(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
                 elif pygame.mouse.get_pressed()[2]:
                     noms.Nom(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
+            elif event.type == pygame.locals.VIDEORESIZE:
+                window.view.screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
+                window.view.width = event.w
+                window.view.height = event.h
 
 if __name__ == "__main__":
     m = Main()

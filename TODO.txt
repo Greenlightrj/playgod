@@ -4,15 +4,32 @@ Put your name next to what you plan to do.
 Remove item from list when done.
 
 MVP
-clean up results of messily smushing code together, comment code- RJ
-make noms and rawrs spawn randomly - RJ
-make bugs' chance of being killed by rawr more dependent on the stat difference. --neither rawrs nor bugs currently have a stat like this, are we okay with giving bugs another gene?
-ability to change environment
-make bugs into sprites instead of a collection of Rects
+    clean up results of messily smushing code together, comment code- RJ
+    make bugs' chance of being killed by rawr more dependent on the stat difference. 
+        --neither rawrs nor bugs currently have a stat like this, are we okay with giving bugs another gene?
+        --I think i meant chance of bugs being killed by noms they're trying to eat, although this would also be good probably.
+    ability to change environment
+    make bugs into sprites instead of a collection of Rects
+        --Is this a speed problem for anyone yet? I kind of like the gradient variation.
+    make bugs not jitter at detection radius when noms are hiding behind rawrs
 
 
 Frills
-Title screen
-Buttons to place each type of item
-sliders?
-speciation?
+    Title screen
+    Buttons to place each type of item
+    sliders?
+    speciation?
+    variation in detection radius?
+    make noms' and rawrs' stats visible
+    mouseover to see an organism's stats
+    graphs that show current population
+    tally number of living organisms
+    win condition
+    baby bugs
+
+Discussion
+    Why is expressed statistic really be the greater of the two genes? Should dominance work like that? If it stays that way, the noms' and rawrs' stats should probably be increased. --RJ
+
+    Long legs are currently *very* strongly selected for, while a bug can survive with not-so-good scores on the other traits. Should this be balanced?
+
+    Should sexiness also affect the time a bug must wait before being ready to breed?

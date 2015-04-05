@@ -25,7 +25,7 @@ class Nom(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.angle = random.randint(-314, 314)
-        self.speed = random.random()
+        self.speed = random.random()*3
         self.xspeed = 1
         self.yspeed = 1
         self.toughness = 0.1*random.randint(0, 8)
@@ -36,8 +36,6 @@ class Nom(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    #def draw(self, window):
-        #pygame.draw.rect(window.view.screen, self.color, [self.x,self.y,5,5])
 
     def flee(self, window):
         """
@@ -74,6 +72,11 @@ class Nom(pygame.sprite.Sprite):
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
+    def multiply(self, window):
+        if len(window.model.nomlist) < 100:
+            if random.random() < 0.005:
+                Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
+
 
     def update(self, window):
         self.flee(window)
@@ -83,32 +86,3 @@ class NomList(pygame.sprite.Group):
     """
     all inherited
     """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
