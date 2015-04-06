@@ -34,7 +34,7 @@ class Rawr(pygame.sprite.Sprite):
         self.angle = random.randrange(-314, 314)
         self.xspeed = 1
         self.yspeed = 1
-        self.speed = random.random()*3
+        self.speed = abs((0.5 - random.random())+0.5)*3
 
 
     def draw(self, window):
@@ -49,10 +49,11 @@ class Rawr(pygame.sprite.Sprite):
         dist = 600
         nearest = False
         for bug in window.model.buglist:
-            far = hypot(self.x - bug.x, self.y - bug.y)*max(bug.sexiness)*2
-            if far < dist:
-                nearest = bug
-                dist = far
+            if bug.sexiness > 0.2:
+                far = hypot(self.x - bug.x, self.y - bug.y)/(max(bug.sexiness)*2)
+                if far < dist:
+                    nearest = bug
+                    dist = far
         if nearest:
             self.angle = 100*atan2(nearest.y - self.y, nearest.x - self.x)
 

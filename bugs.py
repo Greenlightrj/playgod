@@ -195,6 +195,36 @@ class Bug(pygame.sprite.Sprite):
         
         return newBug
 
+    def zerocheck(self, floatVal):
+        """if value is less than zero or more than one it is set to zero or one respectively"""
+        if floatVal < 0:
+            floatVal = 0
+        elif floatVal > 1:
+            floatVal = 1
+
+        return floatVal
+
+    def mutate(self):
+        """has a 0.1 chance of shifting a gene value by 0.1"""
+        print [self.sexiness, self.fleeing, self.hunting]
+
+        rand1 = random.random() #whether to mutate
+        rand2 = random.randint(0, 2) #which stat to mutate
+        rand3 = random.randint(0, 1) #which chromosome to mutate
+        rand4 = 0.2*(0.5 - random.randint(0, 1)) #which direction and how much
+
+        if rand1 < 0.1:
+            if rand2 == 0:
+                self.sexiness[rand3] += rand4
+                self.sexiness[rand3] = self.zerocheck(self.sexiness[rand3])
+            elif rand2 == 1:
+                self.fleeing[rand3] += rand4
+                self.fleeing[rand3] = self.zerocheck(self.fleeing[rand3])
+            elif rand2 == 2:
+                self.hunting[rand3] += rand4
+                self.hunting[rand3] = self.zerocheck(self.hunting[rand3])
+
+        print [self.sexiness, self.fleeing, self.hunting]        
 
 
 class BugList(pygame.sprite.Group):

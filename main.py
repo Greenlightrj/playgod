@@ -63,7 +63,7 @@ class Model():
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
         # these rates are the number of milliseconds between automatic spawning
-        self.nomrate = 500
+        self.nomrate = 500**3
         self.nomtime = 0
         self.rawrrate = 15000
         self.rawrtime = 0
@@ -102,19 +102,21 @@ class Model():
                 self.buglist.add(bug)
             else:
                 if bug.readyToMate == 1 and mate[0].readyToMate == 1:
-                    willTheyWontThey = max(bug.sexiness) + max(mate[0].sexiness)
-                    if willTheyWontThey > 3*random.random():
+                    willTheyWontThey = abs(max(bug.sexiness) - max(mate[0].sexiness))
+                    if willTheyWontThey < random.random():
                         newBug = bug.breed(mate[0], m)
                         self.buglist.add(newBug)
                         #set hunger lower or else bugs create infinite energy by having babies
                         newBug.hunger = max(bug.hunger, mate[0].hunger)
+                        newBug.mutate()
                         bug.readyToMate = 0.0
                         mate[0].readyToMate = 0.0
                 self.buglist.add(bug)
     
 
     def spawning(self, window):
-        if pygame.time.get_ticks() - self.nomtime > self.nomrate and len(window.model.nomlist) < 100:
+        #nomtime is the time at which a nom last spawned. if currently it is nomrate past nomtime, spawn again.
+        if pygame.time.get_ticks() - self.nomtime > (self.nomrate/(window.view.width*window.view.height)) and len(window.model.nomlist) < 100:
             noms.Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
             self.nomtime = pygame.time.get_ticks()
 
