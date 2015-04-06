@@ -26,6 +26,8 @@ Frills
     tally number of living organisms
     win condition
     baby bugs
+    click and drag the organisms
+    counter of how many bugs died of what
 
 Discussion
     Why is expressed statistic really be the greater of the two genes? Should dominance work like that? If it stays that way, the noms' and rawrs' stats should probably be increased. --RJ
