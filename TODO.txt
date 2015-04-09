@@ -40,3 +40,5 @@ Discussion
     Should sexiness also affect the time a bug must wait before being ready to breed?
 
     Would be interesting if bugs went toward sexy bugs when ready to mate.
+
+    What if teeth size affected stealth?

@@ -34,9 +34,9 @@ class Bug(pygame.sprite.Sprite):
         # brighter color means more sexiness
         self.color = [255 * max(self.sexiness), 0, 0]
         # longer legs mean better fleeing
-        self.leglength = 30 * max(self.fleeing)
+        self.leglength = 15 * max(self.fleeing)
         # longer fangs mean better hunting
-        self.toothlength = 10 * max(self.hunting)
+        self.toothlength = 4 * max(self.hunting)
 
         # initial position and angle of motion
         self.x = x
@@ -44,7 +44,7 @@ class Bug(pygame.sprite.Sprite):
         self.angle = random.randrange(-314, 314)
         # the collision requires a sprite for a hitbox.
         # bughitbox.png is an empty transparent image the same size as the bug body.
-        self.hitbox = pygame.image.load("bughitbox.png")
+        self.hitbox = pygame.image.load("bughitbox2.png")
         self.rect = self.hitbox.get_rect()
         self.width = self.rect.size[0]
         self.height = self.rect.size[1]
@@ -64,18 +64,18 @@ class Bug(pygame.sprite.Sprite):
         # the location is [x from left , y from top, width, height]
         pygame.draw.rect(window.view.screen, self.color, [self.x, self.y, self.width, self.height])
         # draw four eyes
-        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 5, self.y + 5, 2, 2])
-        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 10, self.y + 8, 4, 4])
-        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 18, self.y + 8, 4, 4])
-        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 25, self.y + 5, 2, 2])
+        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 3, self.y + 2, 2, 2])
+        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 6, self.y + 5, 3, 3])
+        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 12, self.y + 5, 3, 3])
+        pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 15, self.y + 2, 2, 2])
         # draw four legs
-        pygame.draw.rect(window.view.screen, self.color, [self.x, self.y + 30, 5, self.leglength])
-        pygame.draw.rect(window.view.screen, self.color, [self.x + 10, self.y + 30, 5, self.leglength])
-        pygame.draw.rect(window.view.screen, self.color, [self.x + 20, self.y + 30, 5, self.leglength])
-        pygame.draw.rect(window.view.screen, self.color, [self.x + 30, self.y + 30, 5, self.leglength])
+        pygame.draw.rect(window.view.screen, self.color, [self.x, self.y + 17, 3, self.leglength])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + 6, self.y + 17, 3, self.leglength])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + 11, self.y + 17, 3, self.leglength])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + 17, self.y + 17, 3, self.leglength])
         # draw two teeth
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 10, self.y + 15, 2, self.toothlength])
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 20, self.y + 15, 2, self.toothlength])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 6, self.y + 10, 1, self.toothlength])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 12, self.y + 10, 1, self.toothlength])
 
 
     def hunt(self, window):
@@ -206,7 +206,7 @@ class Bug(pygame.sprite.Sprite):
 
     def mutate(self):
         """has a 0.1 chance of shifting a gene value by 0.1"""
-        print [self.sexiness, self.fleeing, self.hunting]
+        #Sprint [self.sexiness, self.fleeing, self.hunting]
 
         rand1 = random.random() #whether to mutate
         rand2 = random.randint(0, 2) #which stat to mutate
@@ -224,7 +224,7 @@ class Bug(pygame.sprite.Sprite):
                 self.hunting[rand3] += rand4
                 self.hunting[rand3] = self.zerocheck(self.hunting[rand3])
 
-        print [self.sexiness, self.fleeing, self.hunting]        
+        #print [self.sexiness, self.fleeing, self.hunting]        
 
 
 class BugList(pygame.sprite.Group):
