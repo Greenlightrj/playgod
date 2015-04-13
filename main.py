@@ -13,7 +13,7 @@ import random
 import bugs
 import noms
 import rawrs
-
+import environment
 
 class Main():
 
@@ -62,6 +62,7 @@ class Model():
         self.buglist = bugs.BugList()
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
+        self.environ = environment.Environ()
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = 500**3
         self.nomtime = 0
@@ -165,6 +166,7 @@ class View():
         """
         #fill background first
         self.screen.fill(self.black)
+        m.model.environ.draw(self.screen)
         #draw bugs on top
         self.drawbugs(m)
         #actually show all that stuff
@@ -200,6 +202,8 @@ class Controller():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     m.done = True
+                if event.key == pygame.K_e:
+                    environment.Dune(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
             # user left-clicking creates an instance of the bug class where clicked
             # right click creates food
             # center click creates predator

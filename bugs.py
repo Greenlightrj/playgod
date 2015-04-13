@@ -14,9 +14,7 @@ from math import sin, cos, hypot, atan2
 class Bug(pygame.sprite.Sprite):
 
     def __init__(self, x, y, window):
-        """
-        init with some random values to test drawing function
-        """
+
         # init method inherited from pygame sprite class
         # add bug to list of bugs
         pygame.sprite.Sprite.__init__(self, window.model.buglist)
