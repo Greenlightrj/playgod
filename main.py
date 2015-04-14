@@ -14,6 +14,7 @@ import bugs
 import noms
 import rawrs
 import environment
+import buttons
 
 class Main():
 
@@ -36,14 +37,14 @@ class Main():
         # initialize end condition
         self.done = False
 
-    def mainLoop(self, window):
+    def mainLoop(self):
         """
         The main game loop
         """
         # runs until player closes program
         while not self.done:
-            self.controller.checkinput(window)
-            self.model.update(window)
+            self.controller.checkinput(self)
+            self.model.update(self)
             self.view.redraw()
             # tick time forward at a constant rate
             self.clock.tick(60)
@@ -63,11 +64,15 @@ class Model():
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
         self.environ = environment.Environ()
+        self.buttons = buttons.Buttons()
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = 500**3
         self.nomtime = 0
         self.rawrrate = 15000
         self.rawrtime = 0
+        #buttons to press
+        self.bugbutton = buttons.BugButton((0, 0), self.buttons)       
+        
 
     def eating(self, window):
         """
@@ -143,7 +148,6 @@ class Model():
         self.spawning(window)
 
 
-
 class View():
 
     """
@@ -160,6 +164,7 @@ class View():
         # define colors for later use in drawing
         self.black = [0, 0, 0]
 
+
     def redraw(self):
         """
         calls all other methods that update the view
@@ -167,6 +172,7 @@ class View():
         #fill background first
         self.screen.fill(self.black)
         m.model.environ.draw(self.screen)
+        m.model.buttons.draw(self.screen)
         #draw bugs on top
         self.drawbugs(m)
         #actually show all that stuff
@@ -210,7 +216,10 @@ class Controller():
             # later, implement a button-press to place these.
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]:
-                    bugs.Bug(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
+                    for button in window.model.buttons:
+                        if button.rect.collidepoint(event.pos):
+                            button.get_pressed(window)
+                    #bugs.Bug(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
                 elif pygame.mouse.get_pressed()[1]:
                     rawrs.Rawr(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
                 elif pygame.mouse.get_pressed()[2]:
@@ -222,4 +231,4 @@ class Controller():
 
 if __name__ == "__main__":
     m = Main()
-    m.mainLoop(m)
+    m.mainLoop()

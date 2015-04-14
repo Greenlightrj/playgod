@@ -66,7 +66,7 @@ class Rawr(pygame.sprite.Sprite):
             self.angle = random.randrange(157,471)
         elif self.x < 1:                    # bounce off left edge
             self.angle = random.randrange(-157,157)
-        if self.y < 1:                      # bounce off top edge
+        if self.y < 50:                      # bounce off top edge
             self.angle = random.randrange(0, 314)
         elif self.y > window.view.height - self.height:         # bounce off bottom edge
             self.angle = random.randrange(-314,0)

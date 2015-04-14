@@ -114,10 +114,10 @@ class Bug(pygame.sprite.Sprite):
             self.x = 10
         elif self.x < 1:
             self.x = window.view.width-10
-        if self.y < 1:
+        if self.y < 50:
             self.y = window.view.height-10
         elif self.y > window.view.height:
-            self.y = 10
+            self.y = 60
         self.yspeed = sin(self.angle/100.0)*self.speed  # update speed
         self.xspeed = cos(self.angle/100.0)*self.speed  # update speed
         self.x = self.x + self.xspeed
