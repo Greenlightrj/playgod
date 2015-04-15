@@ -57,6 +57,7 @@ class Bug(pygame.sprite.Sprite):
         self.living = True
 
 
+
     def draw(self, window):
         # draw body
         # the location is [x from left , y from top, width, height]

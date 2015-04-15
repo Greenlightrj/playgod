@@ -4,6 +4,8 @@ Buttons classes
 import pygame
 import random
 import bugs
+import noms
+import rawrs
 
 class Button (pygame.sprite.Sprite):
     """
@@ -36,6 +38,32 @@ class BugButton(Button):
 
     def get_pressed(self, window):
         bugs.Bug(random.random()*window.view.width, random.random()*window.view.height, window)
+
+class NomButton(Button):
+    """
+    button that creates a nom at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        #replace bugbutton with nombutton
+        self.image = pygame.image.load("bugbutton.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        noms.Nom(random.random()*window.view.width, random.random()*window.view.height, window)
+
+class RawrButton(Button):
+    """
+    button that creates a rawr at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        #replace bugbutton with rawrbutton
+        self.image = pygame.image.load("bugbutton.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        rawrs.Rawr(random.random()*window.view.width, random.random()*window.view.height, window)
 
 class Buttons (pygame.sprite.Group):
     """

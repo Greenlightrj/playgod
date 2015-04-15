@@ -4,17 +4,12 @@ Put your name next to what you plan to do.
 Remove item from list when done.
 
 MVP
-    clean up results of messily smushing code together, comment code- RJ
-    make bugs' chance of being killed by rawr more dependent on the stat difference. - CAZ (for all subsections)
-        --neither rawrs nor bugs currently have a stat like this, are we okay with giving bugs another gene?
-        --I think i meant chance of bugs being killed by noms they're trying to eat, although this would also be good probably.
-    ability to change environment
-        --Use hunting stat as attack AND defense--kills bug if it fails hunting check
+    -clean up results of messily smushing code together, comment code- RJ
+    -ability to change environment
         --Is this a speed problem for anyone yet? I kind of like the gradient variation.
-    implement drag and drop functionality for environment and bugs - RJ
-    implement add bug/nom/rawr buttons - CAZ (copy code from shapespaint)
-    Make bugs smaller to be in scale with rawrs and noms - RJ
-    Don't die - all (esp. Marie-Caroline)
+    -implement drag & drop functionality 4 environment and bugs (maybe not?)- RJ
+    -make button images for noms (2nd button) and rawrs (3rd button) since Caz doesn't have image editing software
+    -Don't die - all (esp. Marie-Caroline)
 
 
 Frills
@@ -29,7 +24,7 @@ Frills
     tally number of living organisms
     win condition
     baby bugs
-    click and drag the organisms
+    click and drag the organisms?
     counter of how many bugs died of what
 
 Discussion
