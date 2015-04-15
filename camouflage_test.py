@@ -1,9 +1,7 @@
-"""
-main program for Playgod game
-contains model, view, controller classes and main loop
+"""this is to see if I can implement camouflage with DIFFERENT backgrounds!"""
 
-I'm trying to add lots of helpful comments, delete them if they're redundant
-"""
+import random
+
 # modules
 import pygame
 from pygame.locals import RESIZABLE
@@ -15,6 +13,9 @@ import noms
 import rawrs
 import environment
 import buttons
+
+enviroColor = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+
 
 class Main():
 
@@ -65,75 +66,10 @@ class Model():
         self.rawrlist = rawrs.RawrList()
         self.environ = environment.Environ()
         self.buttons = buttons.Buttons()
-        # these rates are the number of milliseconds between automatic spawning
-        self.nomrate = 500**3
-        self.nomtime = 0
-        self.rawrrate = 15000
-        self.rawrtime = 0
+        
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
-        self.nombutton = buttons.NomButton((50, 0), self.buttons)
-        self.rawrbutton = buttons.RawrButton((100, 0), self.buttons)
         
-
-    def eating(self, window):
-        """
-        checks for collisions between bugs and noms, and rawrs and noms
-        """
-        for bug in self.buglist:
-            prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
-            for nom in prey:
-                if max(bug.hunting) < nom.toughness:
-                    bug.kill()
-                else:
-                    if bug.hunger > 30:
-                        bug.hunger -= 30
-                    else:
-                        bug.hunger = 1
-                    nom.kill()
-
-        for rawr in self.rawrlist:
-            prey = pygame.sprite.spritecollide(rawr, self.buglist, 0, collided = None)
-            for bug in prey:
-                if max(bug.hunting) > 0.9:
-                    rawr.kill()
-                else:
-                    if rawr.hunger > 30:
-                        rawr.hunger -= 30
-                    else:
-                        rawr.hunger = 1
-                    bug.kill()
-
-    def mating(self, window):
-        for bug in self.buglist:
-            #remove the bug so it doesn't mate with itself
-            self.buglist.remove(bug)
-            mate = pygame.sprite.spritecollide(bug, self.buglist, 0, collided = None)
-            if mate == []:
-                self.buglist.add(bug)
-            else:
-                if bug.readyToMate == 1 and mate[0].readyToMate == 1:
-                    willTheyWontThey = abs(max(bug.sexiness) - max(mate[0].sexiness))
-                    if willTheyWontThey < random.random():
-                        newBug = bug.breed(mate[0], m)
-                        self.buglist.add(newBug)
-                        #set hunger lower or else bugs create infinite energy by having babies
-                        newBug.hunger = max(bug.hunger, mate[0].hunger)
-                        newBug.mutate()
-                        bug.readyToMate = 0.0
-                        mate[0].readyToMate = 0.0
-                self.buglist.add(bug)
-    
-
-    def spawning(self, window):
-        #nomtime is the time at which a nom last spawned. if currently it is nomrate past nomtime, spawn again.
-        if pygame.time.get_ticks() - self.nomtime > (self.nomrate/(window.view.width*window.view.height)) and len(window.model.nomlist) < 100:
-            noms.Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
-            self.nomtime = pygame.time.get_ticks()
-
-        if pygame.time.get_ticks() - self.rawrtime > self.rawrrate and len(window.model.rawrlist) < 10:
-            rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
-            self.rawrtime = pygame.time.get_ticks()
 
     def update(self, window):
         """
@@ -142,15 +78,9 @@ class Model():
         probably our evolutionary algorithms and stuff
         like view.redraw
         """
-        for nom in self.nomlist:
-            nom.update(window)
-        for rawr in self.rawrlist:
-            rawr.update(window)
+
         for bug in self.buglist:
             bug.update(window)
-        self.eating(window)
-        self.mating(window)
-        self.spawning(window)
 
 
 class View():
@@ -167,7 +97,7 @@ class View():
         # create screen object
         self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
         # define colors for later use in drawing
-        self.colorBG = [0, 0, 0]
+        self.colorBG = enviroColor
 
 
     def redraw(self):
@@ -191,7 +121,13 @@ class View():
         window.model.nomlist.draw(self.screen)
         window.model.rawrlist.draw(self.screen)
         for bug in window.model.buglist:
-            bugs.Bug.draw(bug, window)
+        	bg = self.colorBG
+        	bugColor = [bg[0], bg[1], bg[2]]
+        	bugColor[0] = int(round(bg[0] + max(bug.sexiness)*(255 - bg[0])))
+        	bugColor[1] = int(round(bg[1] - max(bug.sexiness)*(bg[1])))
+        	bugColor[2] = int(round(bg[2] - max(bug.sexiness)*(bg[2])))
+        	bug.color = bugColor
+        	bugs.Bug.draw(bug, window)
 
 
 class Controller():
@@ -221,10 +157,7 @@ class Controller():
                     for button in window.model.buttons:
                         if button.rect.collidepoint(event.pos):
                             button.get_pressed(window)
-            elif event.type == pygame.locals.VIDEORESIZE:
-                window.view.screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
-                window.view.width = event.w
-                window.view.height = event.h
+
 
 if __name__ == "__main__":
     m = Main()
