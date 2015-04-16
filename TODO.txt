@@ -30,7 +30,7 @@ Discussion
 
     What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
 
-    Should leg length factor into warmth? Drowning?
+    Should leg length factor into warmth? Drowning? Should drowning be directly related to camelstat and not thirst?
 
     What if the three colors coded for three environmental factors: Red for heat, blue for water, green for friendliness of noms/rawrs? 
 
