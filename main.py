@@ -74,9 +74,9 @@ class Model():
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = (self.green/255.0)*500**3
         self.nomtime = 0
-        self.rawrrate = 5000
+        self.rawrrate = 7500
         self.rawrtime = 0
-        self.puddlerate = 5000/(self.wet/125.0)
+        self.puddlerate = 5000/(self.wet/255.0)
         self.puddletime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
@@ -122,11 +122,13 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
                 if bug.thirst > 30:
-                        bug.hunger -= 30
+                        bug.thirst -= 30
                         puddle.get_drunk()
                         bug.angle += 314
-                elif random.random()<0.5:
+                elif random.random()<0.25:
                         bug.kill()
+                else:
+                    bug.angle += 314
 
     def mating(self, window):
         for bug in self.buglist:
@@ -266,10 +268,16 @@ class Controller():
                         if element.rect.collidepoint(event.pos):
                             element.kill()
                             donedead = True
+                    for puddle in window.model.puddlelist:
+                        if puddle.rect.collidepoint(event.pos):
+                            puddle.kill()
+                            donedead = True
                     if not donedead:
                         for creature in window.model.buglist: 
                             if creature.rect.collidepoint(event.pos):
                                 creature.kill()
+                                donedead = True
+                    if not donedead:
                         for creature in window.model.rawrlist:
                             if creature.rect.collidepoint(event.pos):
                                 creature.kill()

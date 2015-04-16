@@ -96,15 +96,17 @@ class Bug(pygame.sprite.Sprite):
         """
         bug tracks toward noms within range, or puddles if it is thirsty.
         """
-        dist = 100
+        
         nearest = False
-        if self.thirst > 30 or self.thirst > self.hunger:
+        if self.thirst > 30 and self.thirst > self.hunger:
+            dist = 500
             for puddle in window.model.puddlelist:
                 far = hypot(self.x - puddle.x, self.y - puddle.y)
                 if far < dist:
                     nearest = puddle
                     dist = far
         else:
+            dist = 100
             for nom in window.model.nomlist:
                 far = hypot(self.x - nom.x, self.y - nom.y)
                 if far < dist:
@@ -149,7 +151,7 @@ class Bug(pygame.sprite.Sprite):
         self.rect.y = int(self.y)
 
     def freeze(self, window):
-        if (window.model.hot - self.warmth) < random.randrange(0, 0.8, 0.01):
+        if random.random > abs(window.model.hot - self.warmth):
             self.kill()
 
     def starve(self, window):
@@ -161,7 +163,7 @@ class Bug(pygame.sprite.Sprite):
         else:
             self.living = False
         if self.thirst < 100:
-            self.thirst += 0.1/max(self.camelfactor)
+            self.thirst += 0.01/max(self.camelfactor)
 
     def reaper(self, window):
         """
