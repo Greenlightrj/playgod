@@ -24,7 +24,7 @@ class Bug(pygame.sprite.Sprite):
         self.fleeing = [random.random(), random.random()]
         self.hunting = [random.random(), random.random()]
         self.fuzz = [random.random(), random.random()]
-
+        self.camelfactor = [random.random(), random.random()]
         #this will make it so bugs that are colliding don't mate a MILLION TIMES
         self.readyToMate = 0.0
 
@@ -43,6 +43,8 @@ class Bug(pygame.sprite.Sprite):
         self.warmth = (max(self.fuzz) - 0.2*max(self.fleeing))
         if self.warmth < 0: 
             self.warmth = 0
+        # higher camel factor gives bigger tum and more drought resistance
+        self.tumlength = 3 *max(self.camelfactor)
         # initial position and angle of motion
         self.x = x
         self.y = y
@@ -61,9 +63,8 @@ class Bug(pygame.sprite.Sprite):
         self.speed = max(self.fleeing)*3
         # status
         self.hunger = 1
+        self.thirst = 1
         self.living = True
-
-
 
     def draw(self, window):
         # draw body
@@ -74,6 +75,8 @@ class Bug(pygame.sprite.Sprite):
         pygame.draw.rect(window.view.screen, self.color, [self.x + 15, self.y - self.furlength, 5, self.furlength + 5])
         pygame.draw.rect(window.view.screen, self.color, [self.x - self.furlength, self.y + 10, self.furlength + 5, 7])
         pygame.draw.rect(window.view.screen, self.color, [self.x + self.width - 5, self.y + 10, self.furlength + 5, 7])
+        # draw tum
+        pygame.draw.rect(window.view.screen, self.color, [self.x + 6, self.y + self.height - 2, 6, self.tumlength + 2])
         # draw four eyes
         pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 3, self.y + 2, 2, 2])
         pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 6, self.y + 5, 3, 3])
@@ -91,15 +94,22 @@ class Bug(pygame.sprite.Sprite):
 
     def hunt(self, window):
         """
-        bug tracks toward noms within range.
+        bug tracks toward noms within range, or puddles if it is thirsty.
         """
         dist = 100
         nearest = False
-        for nom in window.model.nomlist:
-            far = hypot(self.x - nom.x, self.y - nom.y)
-            if far < dist:
-                nearest = nom
-                dist = far
+        if self.thirst > 30 or self.thirst > self.hunger:
+            for puddle in window.model.puddlelist:
+                far = hypot(self.x - puddle.x, self.y - puddle.y)
+                if far < dist:
+                    nearest = puddle
+                    dist = far
+        else:
+            for nom in window.model.nomlist:
+                far = hypot(self.x - nom.x, self.y - nom.y)
+                if far < dist:
+                    nearest = nom
+                    dist = far
         if nearest:
             self.angle = 100*atan2(nearest.y - self.y, nearest.x - self.x)
 
@@ -150,6 +160,8 @@ class Bug(pygame.sprite.Sprite):
             self.hunger += 0.1
         else:
             self.living = False
+        if self.thirst < 100:
+            self.thirst += 0.1/max(self.camelfactor)
 
     def reaper(self, window):
         """

@@ -73,10 +73,10 @@ class Nom(pygame.sprite.Sprite):
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
-    def multiply(self, window):
-        if len(window.model.nomlist) < 100:
-            if random.random() < 0.005:
-                Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
+    #def multiply(self, window):
+    #    if len(window.model.nomlist) < 100:
+    #        if random.random() < 0.005:
+    #            Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
 
 
     def update(self, window):

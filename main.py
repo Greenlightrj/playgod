@@ -15,6 +15,7 @@ import noms
 import rawrs
 import environment
 import buttons
+import puddles
 
 class Main():
 
@@ -45,7 +46,7 @@ class Main():
         while not self.done:
             self.controller.checkinput(self)
             self.model.update(self)
-            self.view.redraw()
+            self.view.redraw(self)
             # tick time forward at a constant rate
             self.clock.tick(60)
         # if loop is exited, quit game
@@ -65,15 +66,18 @@ class Model():
         self.rawrlist = rawrs.RawrList()
         self.environ = environment.Environ()
         self.buttons = buttons.Buttons()
-        # these rates are the number of milliseconds between automatic spawning
-        self.nomrate = 500**3
-        self.nomtime = 0
-        self.rawrrate = 5000
-        self.rawrtime = 0
+        self.puddlelist = puddles.PuddleList()
         #environmental factors
         self.heat = 125
         self.green = 255
         self.wet = 125
+        # these rates are the number of milliseconds between automatic spawning
+        self.nomrate = (self.green/255.0)*500**3
+        self.nomtime = 0
+        self.rawrrate = 5000
+        self.rawrtime = 0
+        self.puddlerate = 5000/(self.wet/125.0)
+        self.puddletime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
         self.nombutton = buttons.NomButton((50, 0), self.buttons)
@@ -110,6 +114,20 @@ class Model():
                         rawr.hunger = 1
                     bug.kill()
 
+    def drinking (self, window):
+        """
+        checks for collisions between bugs and puddles
+        """
+        for bug in self.buglist:
+            prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
+            for puddle in prey:
+                if bug.thirst > 30:
+                        bug.hunger -= 30
+                        puddle.get_drunk()
+                        bug.angle += 314
+                elif random.random()<0.5:
+                        bug.kill()
+
     def mating(self, window):
         for bug in self.buglist:
             #remove the bug so it doesn't mate with itself
@@ -141,6 +159,10 @@ class Model():
             rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
             self.rawrtime = pygame.time.get_ticks()
 
+        if pygame.time.get_ticks() - self.puddletime > self.puddlerate and len(window.model.puddlelist) < 20:
+            puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height), window)
+            self.puddletime = pygame.time.get_ticks()
+
     def climatechange(self, window):
         for element in self.environ:
             element.effect(window)
@@ -162,6 +184,7 @@ class Model():
         for bug in self.buglist:
             bug.update(window)
         self.eating(window)
+        self.drinking(window)
         self.mating(window)
         self.spawning(window)
         self.climatechange(window)
@@ -184,12 +207,14 @@ class View():
         self.colorBG = [125, 255, 125]
 
 
-    def redraw(self):
+    def redraw(self, window):
         """
         calls all other methods that update the view
         """
         #fill background first
         self.screen.fill(self.colorBG)
+        for puddle in window.model.puddlelist:
+            puddles.Puddle.draw(puddle, window)
         m.model.environ.draw(self.screen)
         m.model.buttons.draw(self.screen)
         #draw bugs on top

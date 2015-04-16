@@ -7,7 +7,7 @@ import bugs
 import noms
 import rawrs
 import environment
-
+import puddles
 
 class Button (pygame.sprite.Sprite):
     """
@@ -87,6 +87,16 @@ class RainforestTreeButton(Button):
         Button.__init__(self, position, buttonlist)
         self.image = pygame.image.load("rainforesttree_button.png")
         #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
+
+class PuddleButton(Button):
+    """
+    button that creates a random-sized puddle at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
 
     def get_pressed(self, window):
         environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
