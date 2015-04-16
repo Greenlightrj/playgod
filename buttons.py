@@ -99,7 +99,7 @@ class PuddleButton(Button):
         Button.__init__(self, position, buttonlist)
 
     def get_pressed(self, window):
-        environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
+        puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
 
 class Buttons (pygame.sprite.Group):
     """
