@@ -3,28 +3,33 @@ Tasks to do.
 Put your name next to what you plan to do. 
 Remove item from list when done.
 
-MVP
-    -clean up results of messily smushing code together, comment code- RJ
-    -ability to change environment
-        --Is this a speed problem for anyone yet? I kind of like the gradient variation.
-    -implement drag & drop functionality 4 environment and bugs (maybe not?)- RJ
-    -make button images for noms (2nd button) and rawrs (3rd button) since Caz doesn't have image editing software
-    -Don't die - all (esp. Marie-Caroline)
+RJ
+    -color gene > sexiness
+    -Fuzzy Bugs
+    -Button images
+MC
+    -Pixel art ooh ahh
+    -Don't Die
+    -button for environment icons
+CN
+    -Title screen
+    -Color change based on environment icons
+    -Temperature Tolerance stat & integration with environment
 
+UNCLAIMED
+    -Thirst Stat
+        -puddles appear periodically
+        -bugs go toward puddles when thirsty
+        -drought-resistance stat determines speed of thirst increase
+        -bug with too-full thirst that crosses water drowns
 
 Frills
-    Title screen
-    Buttons to place each type of item
-    sliders?
-    speciation?
-    variation in detection radius?
     make noms' and rawrs' stats visible
     mouseover to see an organism's stats
     graphs that show current population
     tally number of living organisms
     win condition
     baby bugs
-    click and drag the organisms?
     counter of how many bugs died of what
 
 Discussion
@@ -35,5 +40,3 @@ Discussion
     Should sexiness also affect the time a bug must wait before being ready to breed?
 
     Would be interesting if bugs went toward sexy bugs when ready to mate.
-
-    What if teeth size affected stealth?
