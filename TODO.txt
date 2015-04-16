@@ -33,6 +33,9 @@ Frills
     counter of how many bugs died of what
 
 Discussion
+
+    What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
+
     Why is expressed statistic really be the greater of the two genes? Should dominance work like that? If it stays that way, the noms' and rawrs' stats should probably be increased. --RJ
 
     Long legs are currently *very* strongly selected for, while a bug can survive with not-so-good scores on the other traits. Should this be balanced?
