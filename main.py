@@ -74,6 +74,8 @@ class Model():
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
         self.nombutton = buttons.NomButton((50, 0), self.buttons)
         self.rawrbutton = buttons.RawrButton((100, 0), self.buttons)
+        self.desertdunebutton = buttons.DesertDuneButton((150, 0), self.buttons)
+        self.rainforesttreebutton = buttons.RainforestTreeButton((200, 0), self.buttons)
         
 
     def eating(self, window):

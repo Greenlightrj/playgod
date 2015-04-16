@@ -6,6 +6,7 @@ import random
 import bugs
 import noms
 import rawrs
+import environment
 
 class Button (pygame.sprite.Sprite):
     """
@@ -64,6 +65,32 @@ class RawrButton(Button):
 
     def get_pressed(self, window):
         rawrs.Rawr(random.random()*window.view.width, random.random()*window.view.height, window)
+
+class DesertDuneButton(Button):
+    """
+    button that creates a rawr at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        #replace bugbutton with rawrbutton
+        self.image = pygame.image.load("desertdune_button.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        environment.DesertDune(random.random()*window.view.width, random.random()*window.view.height, window)
+
+class RainforestTreeButton(Button):
+    """
+    button that creates a rawr at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        #replace bugbutton with rawrbutton
+        self.image = pygame.image.load("rainforesttree_button.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        environment.RainforestTree(random.random()*window.view.width, random.random()*window.view.height, window)
 
 class Buttons (pygame.sprite.Group):
     """
