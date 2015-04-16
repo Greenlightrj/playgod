@@ -50,7 +50,7 @@ class Rawr(pygame.sprite.Sprite):
         nearest = False
         for bug in window.model.buglist:
             if bug.sexiness > 0.2:
-                far = hypot(self.x - bug.x, self.y - bug.y)/(max(bug.sexiness)*2)
+                far = hypot(self.x - bug.x, self.y - bug.y)/(bug.sexiness*2)
                 if far < dist:
                     nearest = bug
                     dist = far

@@ -1,7 +1,7 @@
 """
 Bug Class and the associated group, just to keep things neat
 
-Notes on what i'm doing: 
+Notes on what i'm doing:
 these take a "window" input so the main function can pass in the current window.
 The ninjas told me to do it last time, makes it applicable to code other than our one specific program i guess.
 """
@@ -19,9 +19,8 @@ class Bug(pygame.sprite.Sprite):
         # add bug to list of bugs
         pygame.sprite.Sprite.__init__(self, window.model.buglist)
 
-
         # base stats/genome (may want to package this as a tuple)
-        self.sexiness = [random.random(), random.random()]
+        self.color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
         self.fleeing = [random.random(), random.random()]
         self.hunting = [random.random(), random.random()]
 
@@ -30,7 +29,10 @@ class Bug(pygame.sprite.Sprite):
 
         # derivative stats
         # brighter color means more sexiness
-        self.color = [255 * max(self.sexiness), 0, 0]
+        reddiff = abs(window.view.colorBG[0] - self.color[0])
+        grndiff = abs(window.view.colorBG[1] - self.color[1])
+        bludiff = abs(window.view.colorBG[2] - self.color[2])
+        self.sexiness = (reddiff + grndiff + bludiff)/765.0
         # longer legs mean better fleeing
         self.leglength = 15 * max(self.fleeing)
         # longer fangs mean better hunting
@@ -163,10 +165,7 @@ class Bug(pygame.sprite.Sprite):
         """
         geneList = []
 
-        if random.random() < 0.5:
-            geneList.append(self.sexiness[0])
-        else:
-            geneList.append(self.sexiness[1])
+        geneList.append(self.color)
         if random.random() < 0.5:
             geneList.append(self.fleeing[0])
         else:
@@ -179,6 +178,22 @@ class Bug(pygame.sprite.Sprite):
         return geneList
 
 
+    def colormix (self, mate, n):
+        if self.color[n] == mate.color[n]:
+            babycolor = self.color[n]
+        elif self.color[n] > mate.color[n]:
+            babycolor = random.randint(mate.color[n], self.color[n])
+        else:
+            babycolor = random.randint(self.color[n], mate.color[n])
+        if random.random < 0.1:
+            babycolor += random.randint(-25, 25)
+        if babycolor > 255:
+            babycolor = 255
+        elif babycolor < 0:
+            babycolor = 0
+
+        return babycolor
+
     def breed(self, mate, window):
         """
         Combines the genes of parent bugs and produces a baby bug
@@ -188,11 +203,15 @@ class Bug(pygame.sprite.Sprite):
         momGenes1 = self.getGenes()
         momGenes2 = mate.getGenes()
 
-        newBug.sexiness = [momGenes1[0], momGenes2[0]]
+        red = self.colormix(mate, 0)
+        green = self.colormix(mate, 1)
+        blue = self.colormix(mate, 2)
+        newBug.color = [red, green, blue]
         newBug.fleeing = [momGenes1[1], momGenes2[1]]
         newBug.hunting = [momGenes1[2], momGenes2[2]]
-        
+
         return newBug
+
 
     def zerocheck(self, floatVal):
         """if value is less than zero or more than one it is set to zero or one respectively"""
@@ -208,18 +227,15 @@ class Bug(pygame.sprite.Sprite):
         #Sprint [self.sexiness, self.fleeing, self.hunting]
 
         rand1 = random.random() #whether to mutate
-        rand2 = random.randint(0, 2) #which stat to mutate
+        rand2 = random.randint(0, 1) #which stat to mutate
         rand3 = random.randint(0, 1) #which chromosome to mutate
         rand4 = 0.2*(0.5 - random.randint(0, 1)) #which direction and how much
 
         if rand1 < 0.1:
             if rand2 == 0:
-                self.sexiness[rand3] += rand4
-                self.sexiness[rand3] = self.zerocheck(self.sexiness[rand3])
-            elif rand2 == 1:
                 self.fleeing[rand3] += rand4
                 self.fleeing[rand3] = self.zerocheck(self.fleeing[rand3])
-            elif rand2 == 2:
+            elif rand2 == 1:
                 self.hunting[rand3] += rand4
                 self.hunting[rand3] = self.zerocheck(self.hunting[rand3])
 

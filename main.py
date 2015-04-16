@@ -68,7 +68,7 @@ class Model():
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = 500**3
         self.nomtime = 0
-        self.rawrrate = 15000
+        self.rawrrate = 10000
         self.rawrtime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
@@ -95,7 +95,7 @@ class Model():
         for rawr in self.rawrlist:
             prey = pygame.sprite.spritecollide(rawr, self.buglist, 0, collided = None)
             for bug in prey:
-                if max(bug.hunting) > 0.9:
+                if max(bug.hunting) > 0.9 and random.random() > 0.5:
                     rawr.kill()
                 else:
                     if rawr.hunger > 30:
@@ -113,7 +113,7 @@ class Model():
                 self.buglist.add(bug)
             else:
                 if bug.readyToMate == 1 and mate[0].readyToMate == 1:
-                    willTheyWontThey = abs(max(bug.sexiness) - max(mate[0].sexiness))
+                    willTheyWontThey = abs(bug.sexiness - mate[0].sexiness)
                     if willTheyWontThey < random.random():
                         newBug = bug.breed(mate[0], m)
                         self.buglist.add(newBug)
@@ -167,7 +167,7 @@ class View():
         # create screen object
         self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
         # define colors for later use in drawing
-        self.colorBG = [0, 0, 0]
+        self.colorBG = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
 
 
     def redraw(self):

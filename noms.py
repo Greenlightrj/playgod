@@ -47,7 +47,7 @@ class Nom(pygame.sprite.Sprite):
             for bug in window.model.buglist:
                 if hypot(bug.x - self.x, bug.y - self.y) < dist:
                     if bug.sexiness > 0.2:
-                        dist = 3*max(bug.sexiness)*hypot(bug.x - self.x, bug.y - self.y)
+                        dist = 3*bug.sexiness*hypot(bug.x - self.x, bug.y - self.y)
                         nearest = bug
             if nearest:
                 self.angle = 100*atan2(self.y - nearest.y, self.x - nearest.x)
