@@ -4,23 +4,17 @@ Put your name next to what you plan to do.
 Remove item from list when done.
 
 RJ
-    -Fuzzy Bugs
-    -Button images
+
 MC
     -Pixel art ooh ahh
     -Don't Die
     -button for environment icons
 CN
     -Title screen
-    -Color change based on environment icons
+    -Color change based on environment icons (sorry I stole your job)
     -Temperature Tolerance stat & integration with environment
 
 UNCLAIMED
-    -Thirst Stat
-        -puddles appear periodically
-        -bugs go toward puddles when thirsty
-        -drought-resistance stat determines speed of thirst increase
-        -bug with too-full thirst that crosses water drowns
     -Currency
 
 Frills
