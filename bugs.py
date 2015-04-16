@@ -23,6 +23,7 @@ class Bug(pygame.sprite.Sprite):
         self.color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
         self.fleeing = [random.random(), random.random()]
         self.hunting = [random.random(), random.random()]
+        self.fuzz = [random.random(), random.random()]
 
         #this will make it so bugs that are colliding don't mate a MILLION TIMES
         self.readyToMate = 0.0
@@ -36,8 +37,12 @@ class Bug(pygame.sprite.Sprite):
         # longer legs mean better fleeing
         self.leglength = 15 * max(self.fleeing)
         # longer fangs mean better hunting
-        self.toothlength = 4 * max(self.hunting)
-
+        self.toothlength = 6 * max(self.hunting)
+        # more fuzz and shorter legs make for a warmer bug
+        self.furlength = 3 * max(self.fuzz)
+        self.warmth = (max(self.fuzz) - 0.2*max(self.fleeing))
+        if self.warmth < 0: 
+            self.warmth = 0
         # initial position and angle of motion
         self.x = x
         self.y = y
@@ -64,6 +69,11 @@ class Bug(pygame.sprite.Sprite):
         # draw body
         # the location is [x from left , y from top, width, height]
         pygame.draw.rect(window.view.screen, self.color, [self.x, self.y, self.width, self.height])
+        #draw fuzz
+        pygame.draw.rect(window.view.screen, self.color, [self.x, self.y - self.furlength, 5, self.furlength + 5])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + 15, self.y - self.furlength, 5, self.furlength + 5])
+        pygame.draw.rect(window.view.screen, self.color, [self.x - self.furlength, self.y + 10, self.furlength + 5, 7])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + self.width - 5, self.y + 10, self.furlength + 5, 7])
         # draw four eyes
         pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 3, self.y + 2, 2, 2])
         pygame.draw.rect(window.view.screen, [0, 0, 0], [self.x + 6, self.y + 5, 3, 3])
@@ -75,8 +85,8 @@ class Bug(pygame.sprite.Sprite):
         pygame.draw.rect(window.view.screen, self.color, [self.x + 11, self.y + 17, 3, self.leglength])
         pygame.draw.rect(window.view.screen, self.color, [self.x + 17, self.y + 17, 3, self.leglength])
         # draw two teeth
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 6, self.y + 10, 1, self.toothlength*1.5])
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 12, self.y + 10, 1, self.toothlength*1.5])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 6, self.y + 10, 1, self.toothlength])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 12, self.y + 10, 1, self.toothlength])
 
 
     def hunt(self, window):
@@ -128,6 +138,10 @@ class Bug(pygame.sprite.Sprite):
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
+    def freeze(self, window):
+        if (window.model.hot - self.warmth) < random.randrange(0, 0.8, 0.01):
+            self.kill()
+
     def starve(self, window):
         """
         updates bug hunger
@@ -174,6 +188,10 @@ class Bug(pygame.sprite.Sprite):
             geneList.append(self.hunting[0])
         else:
             geneList.append(self.hunting[1])
+        if random.random() < 0.5:
+            geneList.append(self.fuzz[0])
+        else:
+            geneList.append(self.fuzz[1])
 
         return geneList
 
@@ -209,6 +227,7 @@ class Bug(pygame.sprite.Sprite):
         newBug.color = [red, green, blue]
         newBug.fleeing = [momGenes1[1], momGenes2[1]]
         newBug.hunting = [momGenes1[2], momGenes2[2]]
+        newBug.fuzz = [momGenes1[3], momGenes2[3]]
 
         return newBug
 
@@ -227,7 +246,7 @@ class Bug(pygame.sprite.Sprite):
         #Sprint [self.sexiness, self.fleeing, self.hunting]
 
         rand1 = random.random() #whether to mutate
-        rand2 = random.randint(0, 1) #which stat to mutate
+        rand2 = random.randint(0, 2) #which stat to mutate
         rand3 = random.randint(0, 1) #which chromosome to mutate
         rand4 = 0.2*(0.5 - random.randint(0, 1)) #which direction and how much
 
@@ -238,6 +257,9 @@ class Bug(pygame.sprite.Sprite):
             elif rand2 == 1:
                 self.hunting[rand3] += rand4
                 self.hunting[rand3] = self.zerocheck(self.hunting[rand3])
+            elif rand2 == 2:
+                self.fuzz[rand3] += rand4
+                self.fuzz[rand3] = self.zerocheck(self.fuzz[rand3])
 
         #print [self.sexiness, self.fleeing, self.hunting]        
 

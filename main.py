@@ -70,6 +70,10 @@ class Model():
         self.nomtime = 0
         self.rawrrate = 5000
         self.rawrtime = 0
+        #environmental factors
+        self.heat = 125
+        self.green = 255
+        self.wet = 125
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
         self.nombutton = buttons.NomButton((50, 0), self.buttons)
@@ -137,6 +141,13 @@ class Model():
             rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
             self.rawrtime = pygame.time.get_ticks()
 
+    def climatechange(self, window):
+        for element in self.environ:
+            element.effect(window)
+        window.view.colorBG[0] = self.heat
+        window.view.colorBG[1] = self.green
+        window.view.colorBG[2] = self.wet
+
     def update(self, window):
         """
         general update function
@@ -153,6 +164,7 @@ class Model():
         self.eating(window)
         self.mating(window)
         self.spawning(window)
+        self.climatechange(window)
 
 
 class View():
@@ -169,7 +181,7 @@ class View():
         # create screen object
         self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
         # define colors for later use in drawing
-        self.colorBG = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+        self.colorBG = [125, 255, 125]
 
 
     def redraw(self):
@@ -223,6 +235,20 @@ class Controller():
                     for button in window.model.buttons:
                         if button.rect.collidepoint(event.pos):
                             button.get_pressed(window)
+                elif pygame.mouse.get_pressed()[2]:
+                    donedead = False
+                    for element in window.model.environ:
+                        if element.rect.collidepoint(event.pos):
+                            element.kill()
+                            donedead = True
+                    if not donedead:
+                        for creature in window.model.buglist: 
+                            if creature.rect.collidepoint(event.pos):
+                                creature.kill()
+                        for creature in window.model.rawrlist:
+                            if creature.rect.collidepoint(event.pos):
+                                creature.kill()
+
             elif event.type == pygame.locals.VIDEORESIZE:
                 window.view.screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
                 window.view.width = event.w

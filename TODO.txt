@@ -4,7 +4,6 @@ Put your name next to what you plan to do.
 Remove item from list when done.
 
 RJ
-    -color gene > sexiness
     -Fuzzy Bugs
     -Button images
 MC
@@ -22,6 +21,7 @@ UNCLAIMED
         -bugs go toward puddles when thirsty
         -drought-resistance stat determines speed of thirst increase
         -bug with too-full thirst that crosses water drowns
+    -Currency
 
 Frills
     make noms' and rawrs' stats visible
@@ -35,6 +35,10 @@ Frills
 Discussion
 
     What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
+
+    Should leg length factor into warmth? Drowning?
+
+    What if the three colors coded for three environmental factors: Red for heat, blue for water, green for friendliness of noms/rawrs? 
 
     Why is expressed statistic really be the greater of the two genes? Should dominance work like that? If it stays that way, the noms' and rawrs' stats should probably be increased. --RJ
 

@@ -8,6 +8,7 @@ import noms
 import rawrs
 import environment
 
+
 class Button (pygame.sprite.Sprite):
     """
     parent class for Buttons
@@ -47,7 +48,7 @@ class NomButton(Button):
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
         #replace bugbutton with nombutton
-        self.image = pygame.image.load("bugbutton.png")
+        self.image = pygame.image.load("nombutton.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -60,7 +61,7 @@ class RawrButton(Button):
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
         #replace bugbutton with rawrbutton
-        self.image = pygame.image.load("bugbutton.png")
+        self.image = pygame.image.load("rawrbutton.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -72,12 +73,11 @@ class DesertDuneButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
-        #replace bugbutton with rawrbutton
         self.image = pygame.image.load("desertdune_button.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
-        environment.DesertDune(random.random()*window.view.width, random.random()*window.view.height, window)
+        environment.DesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)
 
 class RainforestTreeButton(Button):
     """
@@ -85,12 +85,11 @@ class RainforestTreeButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
-        #replace bugbutton with rawrbutton
         self.image = pygame.image.load("rainforesttree_button.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
-        environment.RainforestTree(random.random()*window.view.width, random.random()*window.view.height, window)
+        environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
 
 class Buttons (pygame.sprite.Group):
     """
