@@ -75,8 +75,8 @@ class Bug(pygame.sprite.Sprite):
         pygame.draw.rect(window.view.screen, self.color, [self.x + 11, self.y + 17, 3, self.leglength])
         pygame.draw.rect(window.view.screen, self.color, [self.x + 17, self.y + 17, 3, self.leglength])
         # draw two teeth
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 6, self.y + 10, 1, self.toothlength])
-        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 12, self.y + 10, 1, self.toothlength])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 6, self.y + 10, 1, self.toothlength*1.5])
+        pygame.draw.rect(window.view.screen, [255, 255, 255], [self.x + 12, self.y + 10, 1, self.toothlength*1.5])
 
 
     def hunt(self, window):
@@ -106,7 +106,7 @@ class Bug(pygame.sprite.Sprite):
                     dist = hypot(rawr.x - self.x, rawr.y - self.y)
                     nearest = rawr
             if nearest:
-                self.angle = 100*atan2(self.y - nearest.y, self.x - nearest.x)
+                self.angle = 100*atan2(self.y - nearest.y, self.x - nearest.x) + random.randint(-20,20)
 
 
     def walk(self, window):

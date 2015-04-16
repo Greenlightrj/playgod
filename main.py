@@ -68,7 +68,7 @@ class Model():
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = 500**3
         self.nomtime = 0
-        self.rawrrate = 10000
+        self.rawrrate = 5000
         self.rawrtime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
