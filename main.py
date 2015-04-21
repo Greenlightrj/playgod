@@ -36,7 +36,7 @@ class Main():
         self.controller = Controller()
         self.view = View()
         #starts with 15 bugs
-        for i in range(0,12):
+        for i in range(0,15):
              bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
         for i in range (0,3):
             puddles.Puddle(random.randint(0, self.view.width - 60), random.randint(50, self.view.height - 40), self)
@@ -81,7 +81,7 @@ class Model():
         self.nomtime = 0
         self.rawrrate = 7500
         self.rawrtime = 0
-        self.puddlerate = 3000/(self.wet/255.0)
+        self.puddlerate = 1000/(self.wet/255.0)**2
         self.puddletime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
@@ -211,7 +211,7 @@ class View():
     The View Class: creates the view on the screen
     """
 
-    def __init__(self, width = 500, height = 500):
+    def __init__(self, width = 800, height = 800):
         # set screen size
         self.width = width
         self.height = height 
@@ -297,6 +297,7 @@ class Controller():
                 window.view.screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
                 window.view.width = event.w
                 window.view.height = event.h
+                window.model.puddlerate = window.model.puddlerate*(event.w*event.h/800**2)
 
 if __name__ == "__main__":
     m = Main()
