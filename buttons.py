@@ -17,7 +17,7 @@ class Button (pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, buttonlist)
         self.x = position[0]
         self.y = position[1]
-        self.image = pygame.image.load("button.png")
+        self.image = pygame.image.load("Images/button.png")
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
@@ -35,7 +35,7 @@ class BugButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
-        self.image = pygame.image.load("bugbutton.png")
+        self.image = pygame.image.load("Images/bugbutton.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -48,7 +48,7 @@ class NomButton(Button):
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
         #replace bugbutton with nombutton
-        self.image = pygame.image.load("nombutton.png")
+        self.image = pygame.image.load("Images/nombutton.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -61,7 +61,7 @@ class RawrButton(Button):
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
         #replace bugbutton with rawrbutton
-        self.image = pygame.image.load("rawrbutton.png")
+        self.image = pygame.image.load("Images/rawrbutton.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -73,7 +73,7 @@ class DesertDuneButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
-        self.image = pygame.image.load("desertdune_button.png")
+        self.image = pygame.image.load("Images/desertdune_button.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):
@@ -85,7 +85,7 @@ class RainforestTreeButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
-        self.image = pygame.image.load("rainforesttree_button.png")
+        self.image = pygame.image.load("Images/rainforesttree_button.png")
         #self.rect = self.image.get_rect()
 
     def get_pressed(self, window):

@@ -19,7 +19,7 @@ class Rawr(pygame.sprite.Sprite):
         dinos start alive with 1 hunger
         """
         pygame.sprite.Sprite.__init__(self, window.model.rawrlist) #puts dino in list of dinos
-        self.image = pygame.image.load("bugeater.png")
+        self.image = pygame.image.load("Images/bugeater.png")
         self.rect = self.image.get_rect()
         self.width = self.rect.size[0]
         self.height = self.rect.size[1]

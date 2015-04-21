@@ -51,7 +51,7 @@ class Bug(pygame.sprite.Sprite):
         self.angle = random.randrange(-314, 314)
         # the collision requires a sprite for a hitbox.
         # bughitbox.png is an empty transparent image the same size as the bug body.
-        self.hitbox = pygame.image.load("bughitbox2.png")
+        self.hitbox = pygame.image.load("Images/bughitbox2.png")
         self.rect = self.hitbox.get_rect()
         self.width = self.rect.size[0]
         self.height = self.rect.size[1]

@@ -12,7 +12,7 @@ class Nature(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, window.model.environ)
         self.x = x
         self.y = y
-        self.image = pygame.image.load("genericgrass.png")
+        self.image = pygame.image.load("Images/genericgrass.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -27,7 +27,7 @@ class DesertDune(Nature):
     """
     def __init__(self, x, y, window):
         Nature.__init__(self, x, y, window)
-        self.image = pygame.image.load("desertdune.png")
+        self.image = pygame.image.load("Images/desertdune.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -45,7 +45,7 @@ class RainforestTree(Nature):
     """
     def __init__(self, x, y, window):
         Nature.__init__(self, x, y, window)
-        self.image = pygame.image.load("rainforesttree.png")
+        self.image = pygame.image.load("Images/rainforesttree.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
