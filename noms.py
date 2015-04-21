@@ -28,7 +28,7 @@ class Nom(pygame.sprite.Sprite):
         self.speed = random.random()*3
         self.xspeed = 1
         self.yspeed = 1
-        self.toughness = 0.1*random.randint(0, 8)
+        self.toughness = 0.1*random.randint(0, 7)
         self.image = pygame.image.load("Images/fly.png")
         self.rect = self.image.get_rect()
         self.width = self.rect.size[0]

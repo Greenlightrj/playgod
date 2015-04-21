@@ -35,6 +35,9 @@ class Main():
         self.model = Model()
         self.controller = Controller()
         self.view = View()
+        #starts with 15 bugs
+        for i in range(0,10):
+             bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
         # initialize end condition
         self.done = False
 
@@ -95,6 +98,8 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
             for nom in prey:
                 if max(bug.hunting) < nom.toughness:
+                    print "killed by nom",
+                    print max(bug.hunting)
                     bug.kill()
                 else:
                     if bug.hunger > 30:
@@ -113,21 +118,26 @@ class Model():
                         rawr.hunger -= 30
                     else:
                         rawr.hunger = 1
+                    print "was eaten",
+                    print "sexiness " + str(bug.sexiness),
+                    print "speed " + str(max(bug.fleeing))
                     bug.kill()
 
-    def drinking (self, window):
+    def drinking(self, window):
         """
         checks for collisions between bugs and puddles
         """
         for bug in self.buglist:
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
-                if bug.thirst > 30:
+                if max(bug.camelfactor) > 2*random.random()+0.3:
+                    print "drowned",
+                    print max(bug.camelfactor)
+                    bug.kill()
+                elif bug.thirst > 30:
                         bug.thirst -= 30
                         puddle.get_drunk()
                         bug.angle += 314
-                elif random.random()<0.1:
-                        bug.kill()
                 else:
                     bug.angle += 314
 
@@ -255,8 +265,6 @@ class Controller():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     m.done = True
-                if event.key == pygame.K_e:
-                    environment.Dune(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], m)
             # pressing any button makes the appropriate animal
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]:
