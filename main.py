@@ -126,7 +126,7 @@ class Model():
                         bug.thirst -= 30
                         puddle.get_drunk()
                         bug.angle += 314
-                elif random.random()<0.25:
+                elif random.random()<0.1:
                         bug.kill()
                 else:
                     bug.angle += 314
