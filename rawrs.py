@@ -33,7 +33,7 @@ class Rawr(pygame.sprite.Sprite):
         self.angle = random.randrange(-314, 314)
         self.xspeed = 1
         self.yspeed = 1
-        self.speed = 0.03*(2*window.model.heat/255.0)*random.randint(40, 100)
+        self.speed = 0.03*(1.5*window.model.heat/255.0)*random.randint(40, 100)
 
 
     def draw(self, window):

@@ -167,7 +167,7 @@ class Bug(pygame.sprite.Sprite):
             self.kill()
 
         if self.thirst < 100:
-            self.thirst += 0.1/max(self.camelfactor)
+            self.thirst += 0.05/max(self.camelfactor)
         else:
             print "died of thirst",
             print max(self.camelfactor)
