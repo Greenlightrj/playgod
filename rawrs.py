@@ -29,12 +29,11 @@ class Rawr(pygame.sprite.Sprite):
         self.y = y
         self.rect.x = x     #integer position for drawing
         self.rect.y = y
-        self.living = True
         self.hunger = 1
         self.angle = random.randrange(-314, 314)
         self.xspeed = 1
         self.yspeed = 1
-        self.speed = 0.03*(window.model.heat/255.0)*random.randint(30, 100)
+        self.speed = 0.03*(2*window.model.heat/255.0)*random.randint(40, 100)
 
 
     def draw(self, window):
@@ -46,11 +45,11 @@ class Rawr(pygame.sprite.Sprite):
         lets rawr track toward bugs within range
         range is based on hunger and sexiness of bug
         """
-        dist = 600
+        dist = 200
         nearest = False
         for bug in window.model.buglist:
-            if bug.sexiness > 0.2:
-                far = hypot(self.x - bug.x, self.y - bug.y)/(bug.sexiness*2)
+            if bug.sexiness > 0.25:
+                far = hypot(self.x - bug.x, self.y - bug.y)/(bug.sexiness*3)
                 if far < dist:
                     nearest = bug
                     dist = far
@@ -84,21 +83,12 @@ class Rawr(pygame.sprite.Sprite):
         if self.hunger < 100:
             self.hunger += 0.1
         else:
-            self.living = False
-
-    def reaper(self, window):
-        """
-        gets rid of dead rawrs
-        """
-        if self.living is False:
             self.kill()
-
 
     def update(self, window):
         self.hunt(window)
         self.walk(window)
         self.starve(window)
-        self.reaper(window)
 
 
 class RawrList(pygame.sprite.Group):

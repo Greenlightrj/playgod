@@ -64,7 +64,6 @@ class Bug(pygame.sprite.Sprite):
         # status
         self.hunger = 1
         self.thirst = 1
-        self.living = True
 
     def draw(self, window):
         # draw body
@@ -151,7 +150,9 @@ class Bug(pygame.sprite.Sprite):
         self.rect.y = int(self.y)
 
     def freeze(self, window):
-        if random.random > abs(window.model.hot - self.warmth):
+        if random.random() > abs(window.model.hot - self.warmth):
+            print "died of temperature",
+            print max(self.warmth)
             self.kill()
 
     def starve(self, window):
@@ -161,16 +162,15 @@ class Bug(pygame.sprite.Sprite):
         if self.hunger < 100:
             self.hunger += 0.1
         else:
-            self.living = False
-        if self.thirst < 100:
-            self.thirst += 0.01/max(self.camelfactor)
+            print "died of hunger",
+            print max(self.fleeing)
+            self.kill()
 
-    def reaper(self, window):
-        """
-        gets rid of dead bugs
-        potentially add a small indication of what the bug died of
-        """
-        if self.living is False:
+        if self.thirst < 100:
+            self.thirst += 0.1/max(self.camelfactor)
+        else:
+            print "died of thirst",
+            print max(self.camelfactor)
             self.kill()
 
     def update(self, window):
@@ -181,7 +181,6 @@ class Bug(pygame.sprite.Sprite):
         self.flee(window)
         self.walk(window)
         self.starve(window)
-        self.reaper(window)
         if self.readyToMate >= 1:
             self.readyToMate = 1
         else:
