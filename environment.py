@@ -38,6 +38,12 @@ class DesertDune(Nature):
         if window.model.wet > 0:
             window.model.wet -= 0.01
 
+    def negeffect(self, window):
+        if window.model.heat > 0:
+            window.model.heat -= 0.05
+        if window.model.wet < 255:
+            window.model.wet += 0.05
+
 class RainforestTree(Nature):
     """
     Rainforest Tree object
@@ -55,6 +61,12 @@ class RainforestTree(Nature):
             window.model.green += 0.01
         if window.model.wet < 255:
             window.model.wet += 0.01
+
+    def negeffect(self, window):
+        if window.model.green > 0:
+            window.model.green -= 0.05
+        if window.model.wet > 0:
+            window.model.wet -= 0.05
 
 class Environ(pygame.sprite.Group):
     """

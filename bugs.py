@@ -151,8 +151,8 @@ class Bug(pygame.sprite.Sprite):
 
     def freeze(self, window):
         if random.random() > abs(window.model.hot - self.warmth):
-            print "died of temperature",
-            print max(self.warmth)
+            #print "died of temperature",
+            #print max(self.warmth)
             self.kill()
 
     def starve(self, window):
@@ -162,15 +162,15 @@ class Bug(pygame.sprite.Sprite):
         if self.hunger < 100:
             self.hunger += 0.1
         else:
-            print "died of hunger",
-            print max(self.fleeing)
+            #print "died of hunger",
+            #print max(self.fleeing)
             self.kill()
 
         if self.thirst < 100:
-            self.thirst += 0.1/max(self.camelfactor)
+            self.thirst += 0.05/max(self.camelfactor)
         else:
-            print "died of thirst",
-            print max(self.camelfactor)
+            #print "died of thirst",
+            #print max(self.camelfactor)
             self.kill()
 
     def update(self, window):

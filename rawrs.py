@@ -16,9 +16,9 @@ class Rawr(pygame.sprite.Sprite):
     """
     def __init__(self, x, y, window):
         """
-        dinos start alive with 1 hunger
+        rawrs start alive with 1 hunger
         """
-        pygame.sprite.Sprite.__init__(self, window.model.rawrlist) #puts dino in list of dinos
+        pygame.sprite.Sprite.__init__(self, window.model.rawrlist) #puts rawr in list of rawrs
         self.image = pygame.image.load("Images/bugeater.png")
         self.rect = self.image.get_rect()
         self.width = self.rect.size[0]
@@ -33,7 +33,7 @@ class Rawr(pygame.sprite.Sprite):
         self.angle = random.randrange(-314, 314)
         self.xspeed = 1
         self.yspeed = 1
-        self.speed = 0.03*(2*window.model.heat/255.0)*random.randint(40, 100)
+        self.speed = 0.03*(1.3*window.model.heat/255.0)*random.randint(40, 100)
 
 
     def draw(self, window):

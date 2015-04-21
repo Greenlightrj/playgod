@@ -40,6 +40,7 @@ class Main():
              bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
         # initialize end condition
         self.done = False
+        self.winCondition = [255,255, 0]
 
     def mainLoop(self):
         """
@@ -74,6 +75,8 @@ class Model():
         self.heat = 125
         self.green = 255
         self.wet = 125
+        #counts toward win condition
+        self.counter = 0
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = (self.green/255.0)*500**3
         self.nomtime = 0
@@ -98,8 +101,8 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
             for nom in prey:
                 if max(bug.hunting) < nom.toughness:
-                    print "killed by nom",
-                    print max(bug.hunting)
+                    #print "killed by nom",
+                    #print max(bug.hunting)
                     bug.kill()
                 else:
                     if bug.hunger > 30:
@@ -118,9 +121,9 @@ class Model():
                         rawr.hunger -= 30
                     else:
                         rawr.hunger = 1
-                    print "was eaten",
-                    print "sexiness " + str(bug.sexiness),
-                    print "speed " + str(max(bug.fleeing))
+                    #print "was eaten",
+                    #print "sexiness " + str(bug.sexiness),
+                    #print "speed " + str(max(bug.fleeing))
                     bug.kill()
 
     def drinking(self, window):
@@ -131,8 +134,8 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
                 if max(bug.camelfactor) > 2*random.random()+0.3:
-                    print "drowned",
-                    print max(bug.camelfactor)
+                    #print "drowned",
+                    #print max(bug.camelfactor)
                     bug.kill()
                 elif bug.thirst > 30:
                         bug.thirst -= 30
@@ -201,6 +204,19 @@ class Model():
         self.mating(window)
         self.spawning(window)
         self.climatechange(window)
+        self.wincheck(window)
+
+    def wincheck(self, window):
+        """if winCondition is met and there are enough bugs, wincheck increments counter; if either condition becomes false the counter is zeroed"""
+        colors = [int(window.view.colorBG[0]), int(window.view.colorBG[1]), int(window.view.colorBG[2])]
+
+        if colors == window.winCondition and len(self.buglist) > 9:
+            self.counter += 1
+        else:
+            self.counter = 0
+
+        if self.counter >= 30:
+            window.done = True
 
 
 class View():
@@ -276,6 +292,7 @@ class Controller():
                     for element in window.model.environ:
                         if element.rect.collidepoint(event.pos):
                             element.kill()
+                            element.negeffect(window)
                             donedead = True
                     for puddle in window.model.puddlelist:
                         if puddle.rect.collidepoint(event.pos):
