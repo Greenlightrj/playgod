@@ -1,0 +1,58 @@
+Big Idea: a game that simulates evolution due to natural selection, with the player able to change elements in order to fit the organism and the environment. We will explore evolutionary algorithms, graphical interface design, and education value. Minimum viable product: has one environment and one animal that will change with five or so vital stats. Stretch goals: coevolution, multiple environments, communities, more stats.
+Learning Goals:
+Individual Learning Goals:
+Rebecca J: Learn to make a good user interface.
+Caz N: Learn to write readable well-organized code
+Marie-Caroline: Learn to use github, learn how to make code efficient so it doesn't slow down when running multiple parts.
+Team Learning Goals: create a good-looking, fun, complex game.
+Implementation Plan: We will be using pygame and the model/view/controller architecture, (and possibly matlab for python and DEAP). We want to use evolutionary algorithms, but we don’t know of a package that has those so we might have to write our own.
+Project schedule: 
+	March 25th: Finish the project proposal
+	March 26th: Project Proposal Review - in-class
+	April 1st: Finish Design Review Preparation document
+	April 2nd: Design Review
+	April 5th: Have a simple evolutionary algorithm suitable for our project
+		  Have preliminary research on evolution and environmental interactions complete
+April 12th: Have a basic working user interface and game structure (evolutionary algorithm doesn't need to be implemented but we should have an idea of where it might go and how it might work
+	April 13th: Code Review
+	April 19th: Have MVP
+April 23rd: Mid Project presentation 
+April 26th: Do work
+May 3rd: Be finished. if finished == True:
+			return “awesome”
+		       else:
+			May 4th: May the force be with you and don’t panic
+			May 5th: All nighter here we come, we don’t have to be awake for our presentation, right?
+May 6th: Project + poster due
+		
+Collaboration plan: 
+Since we have distinct code segments, it will be efficient to split up the work: one person can work on graphics and interface while the others work on evolution and game mechanics. Mostly Rebecca will work solo because of the odd hours she keeps, and Marie-Caroline and Caz will do some amount of pair programming, some amount of solo programming. We will meet often to integrate our code, because it’s important for us all to be on the same page and know what the others are doing.
+Risks: What do you view as the biggest risks to the success of this project?
+Procrastination/distractibility, 
+trying to do too much, 
+not being able to find a way to implement our concept.
+Additional Course Content: What are some topics that we might cover in class that you think would be especially helpful for your project?
+More evolutionary algorithms; 
+UI/GUI
+More info on game:
+[see picture]
+
+MVP:
+Starting environment
+Starting creature
+Starting genome
+balanced
+small gene/phenopool
+stats:
+ability to get food
+resistance to predators
+likeliness/speed of breeding
+	Stretch:
+Show graphs to show distribution of stats for an ability: matlab for python
+Goal of game: have a goal environment and adapt your population to survive in that environment.
+Make it fun
+	Genome:
+Individual animals
+each animal has a code for each trait
+for example: code determines for survivability, AA = 80% Aa = 50% aa = 20%
+Possibility of coding population instead of individuals
