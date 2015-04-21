@@ -11,12 +11,12 @@ MC
     -button for environment icons
 CN
     -Title screen
+    -Win condition/level functionality
 
 UNCLAIMED
     -Currency
     -Statistics plot
     -Click on bug to see stats
-    -Win condition
 
 Frills
     make noms' and rawrs' stats visible
