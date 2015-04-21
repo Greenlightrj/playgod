@@ -36,8 +36,10 @@ class Main():
         self.controller = Controller()
         self.view = View()
         #starts with 15 bugs
-        for i in range(0,10):
+        for i in range(0,12):
              bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
+        for i in range (0,3):
+            puddles.Puddle(random.randint(0, self.view.width - 60), random.randint(50, self.view.height - 40), self)
         # initialize end condition
         self.done = False
         self.winCondition = [255,255, 0]
@@ -82,7 +84,7 @@ class Model():
         self.nomtime = 0
         self.rawrrate = 7500
         self.rawrtime = 0
-        self.puddlerate = 5000/(self.wet/255.0)
+        self.puddlerate = 3000/(self.wet/255.0)
         self.puddletime = 0
         #buttons to press
         self.bugbutton = buttons.BugButton((0, 0), self.buttons)
@@ -175,7 +177,7 @@ class Model():
             rawrs.Rawr(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
             self.rawrtime = pygame.time.get_ticks()
 
-        if pygame.time.get_ticks() - self.puddletime > self.puddlerate and len(window.model.puddlelist) < 20:
+        if pygame.time.get_ticks() - self.puddletime > self.puddlerate and len(window.model.puddlelist) < 10:
             puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height), window)
             self.puddletime = pygame.time.get_ticks()
 

@@ -26,6 +26,9 @@ Frills
     win condition
     baby bugs
     counter of how many bugs died of what
+    
+BUGS TO FIX (NOT THE LIL BUGGIES)
+    Rawrs sometimes spawn above buttons
 
 Discussion
 
