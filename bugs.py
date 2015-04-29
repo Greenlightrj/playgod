@@ -98,7 +98,7 @@ class Bug(pygame.sprite.Sprite):
         
         nearest = False
         if self.thirst > 30 and self.thirst > self.hunger:
-            dist = 500
+            dist = 1000
             for puddle in window.model.puddlelist:
                 far = hypot(self.x - puddle.x, self.y - puddle.y)
                 if far < dist:
@@ -160,7 +160,7 @@ class Bug(pygame.sprite.Sprite):
         updates bug hunger
         """
         if self.hunger < 100:
-            self.hunger += 0.1
+            self.hunger += 0.07
         else:
             print "died of hunger",
             print max(self.fleeing)

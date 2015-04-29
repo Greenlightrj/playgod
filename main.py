@@ -135,7 +135,7 @@ class Model():
         for bug in self.buglist:
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
-                if max(bug.camelfactor) > 2*random.random()+0.7:
+                if max(bug.camelfactor) > 2*random.random()+1.5:
                     print "drowned",
                     print max(bug.camelfactor)
                     bug.kill()
