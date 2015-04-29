@@ -40,6 +40,7 @@ class BugButton(Button):
 
     def get_pressed(self, window):
         bugs.Bug(random.random()*window.view.width, random.random()*window.view.height, window)
+        window.model.money -= 5
 
 class NomButton(Button):
     """
@@ -53,6 +54,7 @@ class NomButton(Button):
 
     def get_pressed(self, window):
         noms.Nom(random.random()*window.view.width, random.random()*window.view.height, window)
+        window.model.money -= 10
 
 class RawrButton(Button):
     """
@@ -66,6 +68,7 @@ class RawrButton(Button):
 
     def get_pressed(self, window):
         rawrs.Rawr(random.random()*window.view.width, random.random()*window.view.height, window)
+        window.model.money -= 15
 
 class DesertDuneButton(Button):
     """
@@ -78,6 +81,7 @@ class DesertDuneButton(Button):
 
     def get_pressed(self, window):
         environment.DesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)
+        window.model.money -= 30
 
 class RainforestTreeButton(Button):
     """
@@ -90,6 +94,7 @@ class RainforestTreeButton(Button):
 
     def get_pressed(self, window):
         environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
+        window.model.money -= 30
 
 class PuddleButton(Button):
     """
@@ -101,6 +106,7 @@ class PuddleButton(Button):
 
     def get_pressed(self, window):
         puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
+        window.model.money -= 10
 
 class Buttons (pygame.sprite.Group):
     """
