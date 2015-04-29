@@ -103,8 +103,8 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
             for nom in prey:
                 if max(bug.hunting) < nom.toughness:
-                    #print "killed by nom",
-                    #print max(bug.hunting)
+                    print "killed by nom",
+                    print max(bug.hunting)
                     bug.kill()
                 else:
                     if bug.hunger > 30:
@@ -123,9 +123,9 @@ class Model():
                         rawr.hunger -= 30
                     else:
                         rawr.hunger = 1
-                    #print "was eaten",
-                    #print "sexiness " + str(bug.sexiness),
-                    #print "speed " + str(max(bug.fleeing))
+                    print "was eaten",
+                    print "sexiness " + str(bug.sexiness),
+                    print "speed " + str(max(bug.fleeing))
                     bug.kill()
 
     def drinking(self, window):
@@ -136,8 +136,8 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
                 if max(bug.camelfactor) > 2*random.random()+0.3:
-                    #print "drowned",
-                    #print max(bug.camelfactor)
+                    print "drowned",
+                    print max(bug.camelfactor)
                     bug.kill()
                 elif bug.thirst > 30:
                         bug.thirst -= 30
