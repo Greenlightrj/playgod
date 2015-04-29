@@ -93,8 +93,10 @@ class Model():
         self.nombutton = buttons.NomButton((50, 0), self.buttons)
         self.rawrbutton = buttons.RawrButton((100, 0), self.buttons)
         self.desertdunebutton = buttons.DesertDuneButton((150, 0), self.buttons)
-        self.rainforesttreebutton = buttons.RainforestTreeButton((200, 0), self.buttons)
-        self.puddlebutton = buttons.PuddleButton((250,0), self.buttons)
+        self.desertpalmtreebutton = buttons.DesertPalmTreeButton((200, 0), self.buttons)
+        self.deserthillbutton = buttons.DesertHillButton((250, 0), self.buttons)
+        self.rainforesttreebutton = buttons.RainforestTreeButton((300, 0), self.buttons)
+        self.puddlebutton = buttons.PuddleButton((350,0), self.buttons)
         
 
     def eating(self, window):
@@ -137,7 +139,7 @@ class Model():
         for bug in self.buglist:
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
-                if max(bug.camelfactor) > 2*random.random()+0.7:
+                if max(bug.camelfactor) > 2*random.random()+105:
                     print "drowned",
                     print max(bug.camelfactor)
                     bug.kill()
@@ -211,6 +213,7 @@ class Model():
         self.spawning(window)
         self.climatechange(window)
         self.wincheck(window)
+
 
     def wincheck(self, window):
         """if winCondition is met and there are enough bugs, wincheck increments counter; if either condition becomes false the counter is zeroed"""
