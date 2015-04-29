@@ -97,6 +97,7 @@ class PuddleButton(Button):
     """
     def __init__(self, position, buttonlist):
         Button.__init__(self, position, buttonlist)
+        self.image = pygame.image.load("Images/waterbutton.png")
 
     def get_pressed(self, window):
         puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
