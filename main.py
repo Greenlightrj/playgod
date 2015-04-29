@@ -135,7 +135,7 @@ class Model():
         for bug in self.buglist:
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
-                if max(bug.camelfactor) > 2*random.random()+0.3:
+                if max(bug.camelfactor) > 2*random.random()+0.7:
                     print "drowned",
                     print max(bug.camelfactor)
                     bug.kill()
@@ -155,12 +155,14 @@ class Model():
                 self.buglist.add(bug)
             else:
                 if bug.readyToMate == 1 and mate[0].readyToMate == 1:
-                    willTheyWontThey = abs(bug.sexiness - mate[0].sexiness)
+                    willTheyWontThey = 0 #abs(bug.sexiness - mate[0].sexiness)
                     if willTheyWontThey < random.random():
                         newBug = bug.breed(mate[0], m)
                         self.buglist.add(newBug)
                         #set hunger lower or else bugs create infinite energy by having babies
-                        newBug.hunger = max(bug.hunger, mate[0].hunger)
+                        newBug.hunger = 50
+                        bug.hunger += 25
+                        mate[0].hunger += 25
                         newBug.mutate()
                         bug.readyToMate = 0.0
                         mate[0].readyToMate = 0.0

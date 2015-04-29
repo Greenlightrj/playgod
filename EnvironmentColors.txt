@@ -1,0 +1,33 @@
+Environment colors
+
+Rainforest:
+
+- Light brown: 158 103 0
+- Medium brown: 123 65 0
+- Dark brown: 97 49 0
+- Black brown: 47 24 0
+- Light green: 0 147 0
+- Medium green: 0 121 0
+- Dark green: 0 90 0
+
+suggestion for ground base color: either brown or green, I'm really not sure
+
+
+Desert:
+
+- Dark orange: 255 125
+- Light orange: 255 190 125
+- Light brown: 170 85 0
+- Dark brown: 113 56 0
+- Light green: 0 170 0
+- Dark green: 0 105 0
+
+suggestion for ground base color: 255 190 125 (lightorange)
+
+
+Arctic:
+
+- White: 255 255 255
+- Blue: 180 165 255
+
+suggestion for ground base color: something just off of white in the direction of the blue
