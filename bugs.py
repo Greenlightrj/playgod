@@ -150,7 +150,7 @@ class Bug(pygame.sprite.Sprite):
         self.rect.y = int(self.y)
 
     def freeze(self, window):
-        if random.random() > abs(window.model.hot - self.warmth):
+        if random.random() > abs(window.model.heat - self.warmth):
             print "died of temperature",
             print max(self.warmth)
             self.kill()
@@ -160,14 +160,14 @@ class Bug(pygame.sprite.Sprite):
         updates bug hunger
         """
         if self.hunger < 100:
-            self.hunger += 0.07
+            self.hunger += 0.05
         else:
             print "died of hunger",
             print max(self.fleeing)
             self.kill()
 
         if self.thirst < 100:
-            self.thirst += 0.05/max(self.camelfactor)
+            self.thirst += 0.03/max(self.camelfactor)
         else:
             print "died of thirst",
             print max(self.camelfactor)
@@ -181,6 +181,7 @@ class Bug(pygame.sprite.Sprite):
         self.flee(window)
         self.walk(window)
         self.starve(window)
+        self.freeze(window)
         if self.readyToMate >= 1:
             self.readyToMate = 1
         else:

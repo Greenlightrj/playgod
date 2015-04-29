@@ -135,7 +135,7 @@ class Model():
         for bug in self.buglist:
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
-                if max(bug.camelfactor) > 2*random.random()+1.5:
+                if max(bug.camelfactor) > 2*random.random()+105:
                     print "drowned",
                     print max(bug.camelfactor)
                     bug.kill()
@@ -209,6 +209,7 @@ class Model():
         self.spawning(window)
         self.climatechange(window)
         self.wincheck(window)
+
 
     def wincheck(self, window):
         """if winCondition is met and there are enough bugs, wincheck increments counter; if either condition becomes false the counter is zeroed"""
