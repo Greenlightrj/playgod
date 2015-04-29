@@ -102,6 +102,31 @@ class PuddleButton(Button):
     def get_pressed(self, window):
         puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
 
+class DesertPalmTreeButton(Button):
+    """
+    button that creates a desert palm tree at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        self.image = pygame.image.load("Images/desertpalmtreebutton.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        environment.DesertPalmTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
+
+
+class DesertHillButton(Button):
+    """
+    button that creates a desert palm tree at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        self.image = pygame.image.load("Images/deserthillbutton.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        environment.DesertHill(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
+
 class Buttons (pygame.sprite.Group):
     """
     list of all buttons for drawing/updates
