@@ -142,15 +142,15 @@ class graphs():
         starve = window.view.font.render(("Starvation"), 1, (255, 255, 255))
         window.view.screen.blit(starve, (window.view.width + 14, 587))
 
-        pygame.draw.rect(window.view.screen, (250, 250, 0), [window.view.width + 14, 619, window.model.thirsts*180.0/deaths, 25])
+        pygame.draw.rect(window.view.screen, (170, 170, 0), [window.view.width + 14, 619, window.model.thirsts*180.0/deaths, 25])
         thirst = window.view.font.render(("Thirst"), 1, (255, 255, 255))
         window.view.screen.blit(thirst, (window.view.width + 14, 619))
 
-        pygame.draw.rect(window.view.screen, (0, 250, 0), [window.view.width + 14, 651, window.model.rawrdeaths*180.0/deaths, 25])
+        pygame.draw.rect(window.view.screen, (0, 170, 0), [window.view.width + 14, 651, window.model.rawrdeaths*180.0/deaths, 25])
         rawr = window.view.font.render(("Rawr"), 1, (255, 255, 255))
         window.view.screen.blit(rawr, (window.view.width + 14, 651))
 
-        pygame.draw.rect(window.view.screen, (120, 120, 120), [window.view.width + 14, 683, window.model.nomdeaths*180.0/deaths, 25])
+        pygame.draw.rect(window.view.screen, (100, 100, 100), [window.view.width + 14, 683, window.model.nomdeaths*180.0/deaths, 25])
         nom = window.view.font.render(("Nom"), 1, (255, 255, 255))
         window.view.screen.blit(nom, (window.view.width + 14, 683))
 
