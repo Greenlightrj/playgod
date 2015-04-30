@@ -21,6 +21,10 @@ class graphs():
         self.furspread = [0] * 10
         self.camelspread = [0] * 10
 
+    def write(self, textlist):
+        for (text, position) in textlist:
+            x = window.view.font.render(str(text), 1, (255, 255, 255))
+            window.view.screen.blit(x, (positionlist))
 
     def writestats(self, window):
         """
@@ -38,14 +42,17 @@ class graphs():
     def poptracker(self, window):
         """
         keeps track of previous population
+        draws population graph
         """
         self.times += 1
         if self.times >= 80:
             self.times = 0
             self.population.append(len(window.model.buglist))
             self.population.pop(0)
-            for i in range(0, 18):
-                self.pointlist[i] = (window.view.width + 14 + 10*i, 150 - self.population[i])
+        for i in range(0, 18):
+            self.pointlist[i] = (window.view.width + 14 + 10*i, 150 - self.population[i])
+        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.pointlist, 2)
+        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 150), (window.view.drawwidth - 10, 150), 2)
 
     def stattracker(self, window):
         self.colorspread = [0] * 30
@@ -93,17 +100,17 @@ class graphs():
         else:
             return totaldeath
 
+    def backgroundbox(self, window): 
+        pygame.draw.rect(window.view.screen, (69, 69, 69), [window.view.width, 0, window.view.graphwidth, window.view.height])
+        pygame.draw.line(window.view.screen, (113, 113, 113), (window.view.width, 0), (window.view.width, window.view.height), 4)
+
     def redraw(self, window):
         """
         draws the elements of the graph box
         """
-        #draw background box
-        pygame.draw.rect(window.view.screen, (69, 69, 69), [window.view.width, 0, window.view.graphwidth, window.view.height])
-        pygame.draw.line(window.view.screen, (113, 113, 113), (window.view.width, 0), (window.view.width, window.view.height), 4)
-        #population graph
+        self.backgroundbox(window)
         self.poptracker(window)
-        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.pointlist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 150), (window.view.drawwidth - 10, 150), 2)
+        
         #average stats graphs
         self.stattracker(window)
             #speed
