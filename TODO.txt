@@ -14,23 +14,24 @@ CN
     -Win condition/level functionality
 
 UNCLAIMED
-    -Currency
-    -Statistics plot
     -Click on bug to see stats
 
 Frills
     make noms' and rawrs' stats visible
     mouseover to see an organism's stats
-    graphs that show current population
-    tally number of living organisms
     win condition
     baby bugs
-    counter of how many bugs died of what
     
 BUGS TO FIX (NOT THE LIL BUGGIES)
     Rawrs sometimes spawn above buttons
+    bugs caught on water
+    someone sane please look at my graphs, especially color
+    rawrs paralyzed at low temperatures (maybe just remove leglength-warmth link entirely, it doesn't matter)
+
 
 Discussion
+    
+    What happened to the start and end screens?
 
     What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
 
