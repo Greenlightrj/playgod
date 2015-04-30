@@ -37,7 +37,7 @@ class Main():
         self.controller = Controller()
         self.view = View()
         #starts with 15 bugs
-        for i in range(0,15):
+        for i in range(0,1):
              bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
         for i in range (0,3):
             puddles.Puddle(random.randint(0, self.view.width - 60), random.randint(50, self.view.height - 40), self)
@@ -214,6 +214,7 @@ class Model():
             rawr.update(window)
         for bug in self.buglist:
             bug.update(window)
+            bug.furlength = 5
         self.eating(window)
         self.drinking(window)
         self.mating(window)
@@ -316,8 +317,6 @@ class Controller():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     m.done = True
-                elif event.key == pygame.K_SEMICOLON:
-                    window.model.money = 100000
             # pressing any button makes the appropriate animal
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 m.started = True
