@@ -79,6 +79,8 @@ class Model():
         self.wet = 125
         #counts toward win condition
         self.counter = 0
+        #money counter. no limit currently.
+        self.money = 1000
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = (self.green/255.0)*500**3
         self.nomtime = 0
@@ -237,6 +239,9 @@ class View():
         self.width = width
         self.height = height 
         self.screensize = (self.width, self.height)
+        # initialize font
+                # initialize fo
+        self.font = pygame.font.SysFont('monospace', 15)
         # create screen object
         self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
         # define colors for later use in drawing
@@ -255,6 +260,7 @@ class View():
         m.model.buttons.draw(self.screen)
         #draw bugs on top
         self.drawbugs(m)
+        self.writestats(m)
         #actually show all that stuff
         pygame.display.flip()
 
@@ -267,6 +273,13 @@ class View():
         window.model.rawrlist.draw(self.screen)
         for bug in window.model.buglist:
             bugs.Bug.draw(bug, window)
+
+    def writestats(self, window):
+        """
+        displays currency amount, number of living bugs, time used, and time until win
+        """
+        ccounter = self.font.render ('$' + str(window.model.money), 1, (0, 0, 0))
+        self.screen.blit(ccounter, (self.width - 100, 10))
 
 
 class Controller():
