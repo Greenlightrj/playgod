@@ -80,7 +80,7 @@ class Model():
         self.wet = 125
         #counts toward win condition
         self.counter = 0
-        #money counter. no limit currently.
+        #money tally. no limit currently.
         self.money = 1000
         # counter of how many bugs have died of what
         self.starves = 0
