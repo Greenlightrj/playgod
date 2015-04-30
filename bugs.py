@@ -39,7 +39,7 @@ class Bug(pygame.sprite.Sprite):
         # longer fangs mean better hunting
         self.toothlength = 6 * max(self.hunting)
         # more fuzz and shorter legs make for a warmer bug
-        self.furlength = 3 * max(self.fuzz)
+        self.furlength = 5 * max(self.fuzz)
         self.warmth = (max(self.fuzz) - 0.2*max(self.fleeing))
         if self.warmth < 0: 
             self.warmth = 0
@@ -70,10 +70,10 @@ class Bug(pygame.sprite.Sprite):
         # the location is [x from left , y from top, width, height]
         pygame.draw.rect(window.view.screen, self.color, [self.x, self.y, self.width, self.height])
         #draw fuzz
-        pygame.draw.rect(window.view.screen, self.color, [self.x, self.y - self.furlength, 5, self.furlength + 5])
-        pygame.draw.rect(window.view.screen, self.color, [self.x + 15, self.y - self.furlength, 5, self.furlength + 5])
-        pygame.draw.rect(window.view.screen, self.color, [self.x - self.furlength, self.y + 10, self.furlength + 5, 7])
-        pygame.draw.rect(window.view.screen, self.color, [self.x + self.width - 5, self.y + 10, self.furlength + 5, 7])
+        pygame.draw.rect(window.view.screen, self.color, [self.x, self.y - self.furlength + 1, 5, self.furlength])
+        pygame.draw.rect(window.view.screen, self.color, [self.x + self.width - 5, self.y - self.furlength + 1, 5, self.furlength])
+        pygame.draw.rect(window.view.screen, self.color, [self. x - self.furlength + 1, self.y + 7, self.furlength, 9])
+        pygame.draw.rect(window.view.screen, self.color, [self. x + self.width - 1, self.y + 7, self.furlength, 9])
         # draw tum
         pygame.draw.rect(window.view.screen, self.color, [self.x + 6, self.y + self.height - 2, 6, self.tumlength + 2])
         # draw four eyes
