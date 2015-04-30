@@ -83,7 +83,7 @@ class Model():
         #counts toward win condition
         self.counter = 0
         #money tally. no limit currently.
-        self.money = 1000
+        self.money = 0
         # counter of how many bugs have died of what
         self.starves = 0
         self.thirsts = 0
@@ -176,6 +176,7 @@ class Model():
                         newBug.mutate()
                         bug.readyToMate = 0.0
                         mate[0].readyToMate = 0.0
+                        self.money += 5
                 self.buglist.add(bug)
     
 
