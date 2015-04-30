@@ -20,11 +20,11 @@ class graphs():
         self.toothspread = [0] * 10
         self.furspread = [0] * 10
         self.camelspread = [0] * 10
+        self.textlist = []
 
-    def write(self, textlist):
-        for (text, position) in textlist:
-            x = window.view.font.render(str(text), 1, (255, 255, 255))
-            window.view.screen.blit(x, (positionlist))
+    def write(self, window, text, position):
+        x = window.view.font.render(str(text), 1, (255, 255, 255))
+        window.view.screen.blit(x, (position))
 
     def writestats(self, window):
         """
@@ -90,6 +90,29 @@ class graphs():
             self.greenlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.greenspread[i])
             self.bluelist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.bluespread[i])
 
+    def getstat(self, bug, statname):
+        statdict = {'Speed:':bug.fleeing, 'Attack/Defense:':bug.hunting, 'Fur:':bug.fuzz, 'Drought Resistance:':bug.camelfactor}
+        return statdict[statname]
+
+    def statplot(self, window, statname, height):
+        """
+        takes window, bug.stat, and distance from top of screen
+        draws graph
+        """
+        self.write(window, statname, (window.view.width + 14, height - 55))
+        statspread = [0] * 9
+        pointlist = [(0,0)] * 9
+        for bug in window.model.buglist:
+            for i in range(0, 9):
+                stat = self.getstat(bug, statname)
+                if max(stat)*10 > i and max(stat)* 10 <= i+1:
+                    statspread[i] += 1
+        for i in range(0,9):
+            pointlist[i] = (window.view.width + 14 + 20*i, height - 2*statspread[i])
+        pygame.draw.lines(window.view.screen, (255, 255, 255), False, pointlist, 2)
+        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, height), (window.view.drawwidth - 10, height), 2)
+
+
     def deathtracker(self, window):
         """
         calculations for bar graph of cause of bug death
@@ -110,29 +133,13 @@ class graphs():
         """
         self.backgroundbox(window)
         self.poptracker(window)
-        
         #average stats graphs
         self.stattracker(window)
-            #speed
-        speedname = window.view.font.render(('Speed:'), 1, (255, 255, 255))
-        window.view.screen.blit(speedname, (window.view.width + 14, 175))
-        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.speedlist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 220), (window.view.drawwidth - 10, 220), 2)
-            #teeth
-        toothname = window.view.font.render(("Attack/Defense:"), 1, (255, 255, 255))
-        window.view.screen.blit(toothname, (window.view.width + 14, 245))
-        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.toothlist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 300), (window.view.drawwidth - 10, 300), 2)
-            #fur
-        furname = window.view.font.render(("Fur:"), 1, (255, 255, 255))
-        window.view.screen.blit(furname, (window.view.width + 14, 325))
-        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.furlist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 380), (window.view.drawwidth - 10, 380), 2)
-            #camel
-        camelname = window.view.font.render(("Drought Resistance:"), 1, (255, 255, 255))
-        window.view.screen.blit(camelname, (window.view.width + 14, 405))
-        pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.camellist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 460), (window.view.drawwidth - 10, 460), 2)
+        statnames= ['Speed:', "Attack/Defense:", "Fur:", "Drought Resistance:"]
+        heights = [220, 300, 380, 460]
+        for (statname, height) in zip(statnames, heights):
+            self.statplot(window, statname, height)
+
             #color
         colorname = window.view.font.render(("Color:"), 1, (255, 255, 255))
         window.view.screen.blit(colorname, (window.view.width + 14, 485))
