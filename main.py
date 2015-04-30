@@ -139,6 +139,7 @@ class Model():
                     print "was eaten",
                     print "sexiness " + str(bug.sexiness),
                     print "speed " + str(max(bug.fleeing))
+                    self.rawrdeaths += 1
                     bug.kill()
 
     def drinking(self, window):
@@ -151,6 +152,7 @@ class Model():
                 if max(bug.camelfactor) > 2*random.random()+105:
                     print "drowned",
                     print max(bug.camelfactor)
+                    self.drowns += 1
                     bug.kill()
                 elif bug.thirst > 30:
                         bug.thirst -= 30

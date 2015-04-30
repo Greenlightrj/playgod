@@ -29,11 +29,11 @@ class graphs():
         ccounter = window.view.font.render('Money: $' + str(window.model.money), 1, (255, 255, 255))
         window.view.screen.blit(ccounter, (window.view.width + 14, 10))
         bcounter = window.view.font.render('Living Bugs: ' + str(len(window.model.buglist)), 1, (255, 255, 255))
-        window.view.screen.blit(bcounter, (window.view.width + 14, 25))
+        window.view.screen.blit(bcounter, (window.view.width + 14, 55))
         rcounter = window.view.font.render('Heat: ' + str(int(window.model.heat/2.55)) + '%', 1, (255, 255, 255))
-        window.view.screen.blit(rcounter, (window.view.width + 14, window.view.height-50))
+        window.view.screen.blit(rcounter, (window.view.width + 14, 25))
         blcounter =window.view.font.render('Moisture: ' + str(int(window.model.wet/2.55)) + "%", 1, (255, 255, 255))
-        window.view.screen.blit(blcounter, (window.view.width + 14, window.view.height - 25))
+        window.view.screen.blit(blcounter, (window.view.width + 14, 40))
 
     def poptracker(self, window):
         """
@@ -73,7 +73,6 @@ class graphs():
             for (num, listy) in [(0, self.redspread), (1, self.greenspread), (2, self.bluespread)]:
                 for i in range(0, 9):
                     if bug.color[num]/25.5 > i and bug.color[num]/25.5 <= i+1:
-                        print bug.color[num]/255.0
                         listy[i] += 1
         for i in range(0,9):
             self.speedlist[i] = (window.view.width + 14 + 20 * i, 220 -  2* self.speedspread[i])
@@ -83,6 +82,16 @@ class graphs():
             self.redlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.redspread[i])
             self.greenlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.greenspread[i])
             self.bluelist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.bluespread[i])
+
+    def deathtracker(self, window):
+        """
+        calculations for bar graph of cause of bug death
+        """
+        totaldeath = window.model.starves + window.model.thirsts + window.model.rawrdeaths + window.model.nomdeaths + window.model.drowns + window.model.tempdeaths
+        if totaldeath < 18:
+            return 18
+        else:
+            return totaldeath
 
     def redraw(self, window):
         """
@@ -95,7 +104,6 @@ class graphs():
         self.poptracker(window)
         pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.pointlist, 2)
         pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 150), (window.view.drawwidth - 10, 150), 2)
-        #deaths bar graph
         #average stats graphs
         self.stattracker(window)
             #speed
@@ -125,5 +133,34 @@ class graphs():
         pygame.draw.lines(window.view.screen, (0, 255, 0), False, self.greenlist, 2)
         pygame.draw.lines(window.view.screen, (0, 0, 255), False, self.bluelist, 2)
         pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 540), (window.view.drawwidth - 10, 540), 2)
+        #deaths bar graph
+        deaths = self.deathtracker(window)
+        deathgraphname = window.view.font.render(("Causes of Death:"), 1, (255, 255, 255))
+        window.view.screen.blit(deathgraphname, (window.view.width + 14, 565))
+
+        pygame.draw.rect(window.view.screen, (0, 0, 0), [window.view.width + 14, 587, window.model.starves*180.0/deaths, 25])
+        starve = window.view.font.render(("Starvation"), 1, (255, 255, 255))
+        window.view.screen.blit(starve, (window.view.width + 14, 587))
+
+        pygame.draw.rect(window.view.screen, (250, 250, 0), [window.view.width + 14, 619, window.model.thirsts*180.0/deaths, 25])
+        thirst = window.view.font.render(("Thirst"), 1, (255, 255, 255))
+        window.view.screen.blit(thirst, (window.view.width + 14, 619))
+
+        pygame.draw.rect(window.view.screen, (0, 250, 0), [window.view.width + 14, 651, window.model.rawrdeaths*180.0/deaths, 25])
+        rawr = window.view.font.render(("Rawr"), 1, (255, 255, 255))
+        window.view.screen.blit(rawr, (window.view.width + 14, 651))
+
+        pygame.draw.rect(window.view.screen, (120, 120, 120), [window.view.width + 14, 683, window.model.nomdeaths*180.0/deaths, 25])
+        nom = window.view.font.render(("Nom"), 1, (255, 255, 255))
+        window.view.screen.blit(nom, (window.view.width + 14, 683))
+
+        pygame.draw.rect(window.view.screen, (0, 0, 250), [window.view.width + 14, 715, window.model.drowns*180.0/deaths, 25])
+        drown = window.view.font.render(("Drowning"), 1, (255, 255, 255))
+        window.view.screen.blit(drown, (window.view.width + 14, 715))
+
+        pygame.draw.rect(window.view.screen, (250, 0, 0), [window.view.width + 14, 757, window.model.tempdeaths*180.0/deaths, 25])
+        heat = window.view.font.render(("Heat"), 1, (255, 255, 255))
+        window.view.screen.blit(heat, (window.view.width + 14, 757))
+        #window.draw
         #text
         self.writestats(window)

@@ -154,6 +154,7 @@ class Bug(pygame.sprite.Sprite):
         if 0.07*random.random() > abs(window.model.heat/255 - 1 + self.warmth):
             print "died of temperature",
             print self.warmth
+            window.model.tempdeaths += 1
             self.kill()
 
     def starve(self, window):
@@ -165,6 +166,7 @@ class Bug(pygame.sprite.Sprite):
         else:
             print "died of hunger",
             print max(self.fleeing)
+            window.model.starves += 1
             self.kill()
 
         if self.thirst < 100:
@@ -172,6 +174,7 @@ class Bug(pygame.sprite.Sprite):
         else:
             print "died of thirst",
             print max(self.camelfactor)
+            window.model.thirsts += 1
             self.kill()
 
     def update(self, window):
