@@ -43,6 +43,8 @@ class Main():
             puddles.Puddle(random.randint(0, self.view.width - 60), random.randint(50, self.view.height - 40), self)
         # initialize end condition
         self.done = False
+        self.started = False
+        self.won = False
         self.winCondition = [255,255, 0]
 
     def mainLoop(self):
@@ -81,7 +83,7 @@ class Model():
         #counts toward win condition
         self.counter = 0
         #money tally. no limit currently.
-        self.money = 1000
+        self.money = 0
         # counter of how many bugs have died of what
         self.starves = 0
         self.thirsts = 0
@@ -115,8 +117,6 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.nomlist, 0, collided = None)
             for nom in prey:
                 if max(bug.hunting) < nom.toughness:
-                    print "killed by nom",
-                    print max(bug.hunting)
                     self.nomdeaths += 1
                     bug.kill()
                 else:
@@ -136,9 +136,6 @@ class Model():
                         rawr.hunger -= 30
                     else:
                         rawr.hunger = 1
-                    print "was eaten",
-                    print "sexiness " + str(bug.sexiness),
-                    print "speed " + str(max(bug.fleeing))
                     self.rawrdeaths += 1
                     bug.kill()
 
@@ -150,8 +147,6 @@ class Model():
             prey = pygame.sprite.spritecollide(bug, self.puddlelist, 0, collided = None)
             for puddle in prey:
                 if max(bug.camelfactor) > 2*random.random()+105:
-                    print "drowned",
-                    print max(bug.camelfactor)
                     self.drowns += 1
                     bug.kill()
                 elif bug.thirst > 30:
@@ -181,6 +176,7 @@ class Model():
                         newBug.mutate()
                         bug.readyToMate = 0.0
                         mate[0].readyToMate = 0.0
+                        self.money += 5
                 self.buglist.add(bug)
     
 
@@ -230,13 +226,13 @@ class Model():
         """if winCondition is met and there are enough bugs, wincheck increments counter; if either condition becomes false the counter is zeroed"""
         colors = [int(window.view.colorBG[0]), int(window.view.colorBG[1]), int(window.view.colorBG[2])]
 
-        if colors == window.winCondition and len(self.buglist) > 9:
+        if colors == window.winCondition and len(self.buglist) > 9 and self.counter <= 3000:
             self.counter += 1
         else:
             self.counter = 0
 
-        if self.counter >= 30:
-            window.done = True
+        if self.counter >= 3000:
+            window.won = True
 
 
 class View():
@@ -267,15 +263,26 @@ class View():
         """
         calls all other methods that update the view
         """
-        #fill background first
-        self.screen.fill(self.colorBG)
-        for puddle in window.model.puddlelist:
-            puddles.Puddle.draw(puddle, window)
-        m.model.environ.draw(self.screen)
-        m.model.buttons.draw(self.screen)
-        #draw bugs on top
-        self.drawbugs(m)
-        self.graphs.redraw(window)
+        if m.won:
+            screen = pygame.display.set_mode((self.width, self.height))
+            self.screen.fill((33,0,127))
+            image = pygame.image.load("Images/winscreen.png")
+            screen.blit(image, (self.width/2 - 70,self.height/2 -100))
+        elif m.started:
+            screen = pygame.display.set_mode((self.drawwidth, self.height), RESIZABLE)
+            #fill background first
+            self.screen.fill(self.colorBG)
+            for puddle in window.model.puddlelist:
+                puddles.Puddle.draw(puddle, window)
+            m.model.environ.draw(self.screen)
+            m.model.buttons.draw(self.screen)
+            #draw bugs on top
+            self.drawbugs(m)
+            self.graphs.redraw(window)
+        else:
+            screen = pygame.display.set_mode((self.width, self.height), RESIZABLE)
+            image = pygame.image.load("Images/startscreen.png")
+            screen.blit(image, (0,0))
         #actually show all that stuff
         pygame.display.flip()
 
@@ -311,6 +318,7 @@ class Controller():
                     m.done = True
             # pressing any button makes the appropriate animal
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                m.started = True
                 if pygame.mouse.get_pressed()[0]:
                     for button in window.model.buttons:
                         if button.rect.collidepoint(event.pos):
