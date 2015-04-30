@@ -16,6 +16,7 @@ import rawrs
 import environment
 import buttons
 import puddles
+import graphs2
 
 class Main():
 
@@ -81,6 +82,13 @@ class Model():
         self.counter = 0
         #money counter. no limit currently.
         self.money = 1000
+        # counter of how many bugs have died of what
+        self.starves = 0
+        self.thirsts = 0
+        self.rawrdeaths = 0
+        self.nomdeaths = 0
+        self.drowns = 0
+        self.tempdeaths = 0
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = (self.green/255.0)*500**3
         self.nomtime = 0
@@ -109,6 +117,7 @@ class Model():
                 if max(bug.hunting) < nom.toughness:
                     print "killed by nom",
                     print max(bug.hunting)
+                    self.nomdeaths += 1
                     bug.kill()
                 else:
                     if bug.hunger > 30:
@@ -234,18 +243,22 @@ class View():
     The View Class: creates the view on the screen
     """
 
-    def __init__(self, width = 800, height = 800):
+    def __init__(self, width = 1000, height = 800):
         # set screen size
-        self.width = width
+        self.drawwidth = width
+        self.graphwidth = 200
+        self.width = width - self.graphwidth
         self.height = height 
-        self.screensize = (self.width, self.height)
+        self.screensize = (self.drawwidth, self.height)
         # initialize font
-                # initialize fo
         self.font = pygame.font.SysFont('monospace', 15)
         # create screen object
         self.screen = pygame.display.set_mode(self.screensize, RESIZABLE)
+        # initialize graphs class
+        self.graphs = graphs2.graphs()
         # define colors for later use in drawing
         self.colorBG = [125, 255, 125]
+
 
 
     def redraw(self, window):
@@ -260,7 +273,7 @@ class View():
         m.model.buttons.draw(self.screen)
         #draw bugs on top
         self.drawbugs(m)
-        self.writestats(m)
+        self.graphs.redraw(window)
         #actually show all that stuff
         pygame.display.flip()
 
@@ -273,13 +286,6 @@ class View():
         window.model.rawrlist.draw(self.screen)
         for bug in window.model.buglist:
             bugs.Bug.draw(bug, window)
-
-    def writestats(self, window):
-        """
-        displays currency amount, number of living bugs, time used, and time until win
-        """
-        ccounter = self.font.render ('$' + str(window.model.money), 1, (0, 0, 0))
-        self.screen.blit(ccounter, (self.width - 100, 10))
 
 
 class Controller():
@@ -330,7 +336,8 @@ class Controller():
 
             elif event.type == pygame.locals.VIDEORESIZE:
                 window.view.screen = pygame.display.set_mode((event.w, event.h), RESIZABLE)
-                window.view.width = event.w
+                window.view.drawwidth = event.w
+                window.view.width = window.view.drawwidth - window.view.graphwidth
                 window.view.height = event.h
                 window.model.puddlerate = window.model.puddlerate*(event.w*event.h/800**2)
 
