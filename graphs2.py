@@ -30,8 +30,10 @@ class graphs():
         window.view.screen.blit(ccounter, (window.view.width + 14, 10))
         bcounter = window.view.font.render('Living Bugs: ' + str(len(window.model.buglist)), 1, (255, 255, 255))
         window.view.screen.blit(bcounter, (window.view.width + 14, 25))
-        #environment stats
-        #average stats
+        rcounter = window.view.font.render('Heat: ' + str(int(window.model.heat/2.55)) + '%', 1, (255, 255, 255))
+        window.view.screen.blit(rcounter, (window.view.width + 14, window.view.height-50))
+        blcounter =window.view.font.render('Moisture: ' + str(int(window.model.wet/2.55)) + "%", 1, (255, 255, 255))
+        window.view.screen.blit(blcounter, (window.view.width + 14, window.view.height - 25))
 
     def poptracker(self, window):
         """
