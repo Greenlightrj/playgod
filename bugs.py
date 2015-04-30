@@ -39,7 +39,7 @@ class Bug(pygame.sprite.Sprite):
         # longer fangs mean better hunting
         self.toothlength = 6 * max(self.hunting)
         # more fuzz and shorter legs make for a warmer bug
-        self.furlength = 5 * max(self.fuzz)
+        self.furlength = 3 * max(self.fuzz)
         self.warmth = (max(self.fuzz) - 0.2*max(self.fleeing))
         if self.warmth < 0: 
             self.warmth = 0
