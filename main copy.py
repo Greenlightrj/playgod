@@ -81,6 +81,7 @@ class Model():
         self.wet = 125
         #counts toward win condition
         self.counter = 0
+        self.money = 1000
         # these rates are the number of milliseconds between automatic spawning
         self.nomrate = (self.green/255.0)*500**3
         self.nomtime = 0
@@ -219,10 +220,8 @@ class Model():
         """if winCondition is met and there are enough bugs, wincheck increments counter; if either condition becomes false the counter is zeroed"""
         colors = [int(window.view.colorBG[0]), int(window.view.colorBG[1]), int(window.view.colorBG[2])]
 
-        if colors == window.winCondition and len(self.buglist) > 9:
+        if colors == window.winCondition and len(self.buglist) > 9 and self.counter <= 3000:
             self.counter += 1
-            print True
-            print self.counter
         else:
             self.counter = 0
 

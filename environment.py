@@ -94,7 +94,7 @@ class DesertPalmTree(Nature):
 
 class DesertHill(Nature):
     """
-    Desert palm tree object
+    Desert hill object
     in the future, will make the environment hotter and drier?
     """
     def __init__(self, x, y, window):
@@ -105,8 +105,8 @@ class DesertHill(Nature):
         self.rect.y = y
 
     def effect(self, window):
-        if window.model.heat < 255:
-            window.model.heat += 0.01
+        if window.model.heat > 0:
+            window.model.heat -= 0.01
         if window.model.wet > 0:
             window.model.wet -= 0.01
 
