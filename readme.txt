@@ -1,6 +1,9 @@
 Read me for PlayGod
 created by Rebecca Jordan, Caz Nichols, and Marie-Caroline Finke for Spring 2015 SoftDes at Olin COllege of Engineering
 
+What is it:
+	PlayGod is a game created in Python with PyGame that allows the player to 'play god' and manipulate the environment that a group of Bugs is living in. The changes to the environment cause natural selection of the bugs to change the genome of the Bugs as the evolve until they are suited for the intended environment. 
+
 Instructions:
 The goal of the game is to reach a set environment and have at least 10 bugs survive in the goal environment for a longer period of time.
 To start run main.py in your terminal, this will open a new window. Click anywhere in the new window to start. This will navigate you onto a light green window containing the following:
@@ -15,6 +18,7 @@ To start run main.py in your terminal, this will open a new window. Click anywhe
 - Blue puddles: these are the water sources for the Bugs. Bugs will die of thirst if they don't drink enough water but they can also die if they are too drought resistant and collide with water. Puddles will spawn naturally and the amount will depend on the moisture of the environment.
 - A row of buttons in the top-left: clicking each of these buttons will spawn the element shown on the button. Spawning a new element costs money. The environmental elements each effect the environment according to their type. The types are desert, rainforest, and arctic. A desert element will lower the moisture and raise the heat, a jungle element will raise the moisture and raise the heat, an arctic element will lower the moisture and lower the heat. The waterdroplet will spawn more puddles.
 - The information panel on the right: this panel gives you information about the state of the game. From top to bottow it lists the amount of Money you currently posses, the heat and the moisture, the number of living bugs, graphs showing how each attribute of the genome is changing over time, and the cuase of death seperated into categories.
+	- Money: money is earned every time two Bugs reproduce and have a baby. The money is then used to buy more creatures annd environmental elements.
 
 Any other questions? Find a glitch? Contact us on sites.google.com/site/playgodproject/home
 
