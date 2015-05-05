@@ -2,22 +2,30 @@
 Tasks to do. 
 Put your name next to what you plan to do. 
 Remove item from list when done.
+* last minute
 
 RJ
+    -Put together poster
+    -Print poster
+    * make only last ~18 deaths show on stats
 
 MC
-    -Pixel art ooh ahh
+    -Website
+        -Main Page (about us, what we made, why we made it)
+        -How To page
+        -Implementation page with org chart
+        -Results and screenshots
+        -Story of how we created it (screenshots of earlier versions)
+        -Credit for external resources (pygame?)
+    -Readme
+    *Pixel art ooh ahh
     -Don't Die
-    -button for environment icons
 CN
-    -Title screen
-    -Win condition/level functionality
 
 UNCLAIMED
     -Click on bug to see stats
 
 Frills
-    make noms' and rawrs' stats visible
     mouseover to see an organism's stats
     win condition
     baby bugs
@@ -30,18 +38,10 @@ BUGS TO FIX (NOT THE LIL BUGGIES)
 
 
 Discussion
-    
-    What happened to the start and end screens?
 
     What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
 
-    Should leg length factor into warmth? Drowning? Should drowning be directly related to camelstat and not thirst?
-
-    What if the three colors coded for three environmental factors: Red for heat, blue for water, green for friendliness of noms/rawrs? 
-
     Why is expressed statistic really be the greater of the two genes? Should dominance work like that? If it stays that way, the noms' and rawrs' stats should probably be increased. --RJ
-
-    Long legs are currently *very* strongly selected for, while a bug can survive with not-so-good scores on the other traits. Should this be balanced?
 
     Should sexiness also affect the time a bug must wait before being ready to breed?
 
