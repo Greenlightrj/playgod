@@ -21,7 +21,7 @@ MC
     *Pixel art ooh ahh
     -Don't Die
 CN
-    -Make longer fuzz not dominant
+    *Make longer fuzz not dominant
 
 UNCLAIMED
     -Click on bug to see stats
