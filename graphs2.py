@@ -28,16 +28,12 @@ class graphs():
 
     def writestats(self, window):
         """
-        displays currency amount, number of living bugs, time used, and time until win
+        displays currency amount, number of living bugs, environment statstffffffffffffffffffffffffft
         """
-        ccounter = window.view.font.render('Money: $' + str(window.model.money), 1, (255, 255, 255))
-        window.view.screen.blit(ccounter, (window.view.width + 14, 10))
-        bcounter = window.view.font.render('Living Bugs: ' + str(len(window.model.buglist)), 1, (255, 255, 255))
-        window.view.screen.blit(bcounter, (window.view.width + 14, 55))
-        rcounter = window.view.font.render('Heat: ' + str(int(window.model.heat/2.55)) + '%', 1, (255, 255, 255))
-        window.view.screen.blit(rcounter, (window.view.width + 14, 25))
-        blcounter =window.view.font.render('Moisture: ' + str(int(window.model.wet/2.55)) + "%", 1, (255, 255, 255))
-        window.view.screen.blit(blcounter, (window.view.width + 14, 40))
+        stats = ['Money: $' + str(window.model.money), 'Living Bugs: ' + str(len(window.model.buglist)), 'Heat: ' + str(int(window.model.heat/2.55)) + '%', 'Moisture: ' + str(int(window.model.wet/2.55)) + '%']
+        heights = [10, 55, 25, 40]
+        for (stat, height) in zip(stats, heights):
+            self.write(window, stat, (window.view.width + 14, height))
 
     def poptracker(self, window):
         """
@@ -54,41 +50,7 @@ class graphs():
         pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.pointlist, 2)
         pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 150), (window.view.drawwidth - 10, 150), 2)
 
-    def stattracker(self, window):
-        self.colorspread = [0] * 30
-        self.colorlist = 0
-        self.speedspread = [0] * 9
-        self.speedlist = [(0,0)] * 9
-        self.toothspread = [0] * 9
-        self.toothlist = [(0,0)] * 9
-        self.furspread = [0] * 9
-        self.furlist = [(0,0)] * 9
-        self.camelspread = [0] * 9
-        self.camellist = [(0,0)] * 9
-        self.redspread = [0] * 9
-        self.redlist = [(0,0)] * 9
-        self.greenspread = [0] * 9
-        self.greenlist = [(0,0)] * 9
-        self.bluespread = [0] * 9
-        self.bluelist = [(0,0)] * 9
 
-        for bug in window.model.buglist:
-            for (listy, stat) in [(self.speedspread,bug.fleeing), (self.toothspread,bug.hunting), (self.furspread,bug.fuzz), (self.camelspread,bug.camelfactor)]:
-                for i in range(0, 9):
-                    if max(stat)*10 >i and max(stat)*10 <= i+1:
-                        listy[i] += 1
-            for (num, listy) in [(0, self.redspread), (1, self.greenspread), (2, self.bluespread)]:
-                for i in range(0, 9):
-                    if bug.color[num]/25.5 > i and bug.color[num]/25.5 <= i+1:
-                        listy[i] += 1
-        for i in range(0,9):
-            self.speedlist[i] = (window.view.width + 14 + 20 * i, 220 -  2* self.speedspread[i])
-            self.toothlist[i] = (window.view.width + 14 + 20 * i, 300 - 2 * self.toothspread[i])
-            self.furlist[i] = (window.view.width + 14 + 20 * i, 380 - 2 * self.furspread[i])
-            self.camellist[i] = (window.view.width + 14 + 20 * i, 460 - 2 * self.camelspread[i])
-            self.redlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.redspread[i])
-            self.greenlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.greenspread[i])
-            self.bluelist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.bluespread[i])
 
     def getstat(self, bug, statname):
         statdict = {'Speed:':bug.fleeing, 'Attack/Defense:':bug.hunting, 'Fur:':bug.fuzz, 'Drought Resistance:':bug.camelfactor}
@@ -113,6 +75,25 @@ class graphs():
         pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, height), (window.view.drawwidth - 10, height), 2)
 
 
+    def colorplot(self, window):
+        self.redspread = [0] * 9
+        self.redlist = [(0,0)] * 9
+        self.greenspread = [0] * 9
+        self.greenlist = [(0,0)] * 9
+        self.bluespread = [0] * 9
+        self.bluelist = [(0,0)] * 9
+
+        for bug in window.model.buglist:
+            for (num, listy) in [(0, self.redspread), (1, self.greenspread), (2, self.bluespread)]:
+                for i in range(0, 9):
+                    if bug.color[num]/25.5 > i and bug.color[num]/25.5 <= i+1:
+                        listy[i] += 1
+        for i in range(0,9):
+            self.redlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.redspread[i])
+            self.greenlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.greenspread[i])
+            self.bluelist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.bluespread[i])
+
+
     def deathtracker(self, window):
         """
         calculations for bar graph of cause of bug death
@@ -134,13 +115,14 @@ class graphs():
         self.backgroundbox(window)
         self.poptracker(window)
         #average stats graphs
-        self.stattracker(window)
+
         statnames= ['Speed:', "Attack/Defense:", "Fur:", "Drought Resistance:"]
         heights = [220, 300, 380, 460]
         for (statname, height) in zip(statnames, heights):
             self.statplot(window, statname, height)
 
             #color
+        self.colorplot(window)
         colorname = window.view.font.render(("Color:"), 1, (255, 255, 255))
         window.view.screen.blit(colorname, (window.view.width + 14, 485))
         pygame.draw.lines(window.view.screen, (255, 0, 0), False, self.redlist, 2)

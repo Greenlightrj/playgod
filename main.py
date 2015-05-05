@@ -1,15 +1,13 @@
 """
 main program for Playgod game
 contains model, view, controller classes and main loop
-
-I'm trying to add lots of helpful comments, delete them if they're redundant
 """
-# modules
+# external modules
 import pygame
 from pygame.locals import RESIZABLE
 import random
 
-# other files
+# Playgod modules
 import bugs
 import noms
 import rawrs
@@ -21,14 +19,14 @@ import graphs2
 class Main():
 
     """
-    The Main Class-: handles initialization and main game loop
+    The Main Class: handles initialization and main game loop
     """
 
     def __init__(self):
+
         """
         initializes pygame and creates other classes
         """
-        # initialize pygame
         pygame.init()
         # we use this to tick time forward at a constant rate
         self.clock = pygame.time.Clock()
@@ -36,27 +34,27 @@ class Main():
         self.model = Model()
         self.controller = Controller()
         self.view = View()
-        #starts with 15 bugs
+        # starts with 15 bugs and 3 puddles
         for i in range(0,15):
              bugs.Bug(random.random()*self.view.width, random.random()*self.view.height, self)
         for i in range (0,3):
             puddles.Puddle(random.randint(0, self.view.width - 60), random.randint(50, self.view.height - 40), self)
-        # initialize end condition
+        # initialize start screen, win screen, and end condition 
         self.done = False
         self.started = False
         self.won = False
         self.winCondition = [255,255, 0]
 
     def mainLoop(self):
+
         """
-        The main game loop
+        The main game loop. Runs until player closes the program.
         """
-        # runs until player closes program
         while not self.done:
             self.controller.checkinput(self)
             self.model.update(self)
             self.view.redraw(self)
-            # tick time forward at a constant rate
+            # prevents the game from running at more than 60 FPS
             self.clock.tick(60)
         # if loop is exited, quit game
         pygame.quit()
@@ -67,9 +65,8 @@ class Model():
     """
     Contains and updates the current state of the game
     """
-
     def __init__(self):
-        # creates our list of bugs
+        # creates our lists of objects
         self.buglist = bugs.BugList()
         self.nomlist = noms.NomList()
         self.rawrlist = rawrs.RawrList()
