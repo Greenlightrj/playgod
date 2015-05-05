@@ -108,7 +108,8 @@ class Model():
         self.desertpalmtreebutton = buttons.DesertPalmTreeButton((200, 0), self.buttons)
         self.deserthillbutton = buttons.DesertHillButton((250, 0), self.buttons)
         self.rainforesttreebutton = buttons.RainforestTreeButton((300, 0), self.buttons)
-        self.puddlebutton = buttons.PuddleButton((350, 0), self.buttons)
+        self.arcticdesertdunebutton = buttons.ArcticDesertDuneButton((350,0), self.buttons)
+        self.puddlebutton = buttons.PuddleButton((400,0), self.buttons)
 
     def eating(self, window):
         """

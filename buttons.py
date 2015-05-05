@@ -143,6 +143,20 @@ class DesertHillButton(Button):
             environment.DesertHill(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
             window.model.money -= 25
 
+class ArcticDesertDuneButton(Button):
+    """
+    button that creates a rawr at a random point onscreen
+    """
+    def __init__(self, position, buttonlist):
+        Button.__init__(self, position, buttonlist)
+        self.image = pygame.image.load("Images/arcticdesertdunebutton.png")
+        #self.rect = self.image.get_rect()
+
+    def get_pressed(self, window):
+        if window.model.money >= 30:
+            environment.ArcticDesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)
+            window.model.money -= 30
+
 class Buttons (pygame.sprite.Group):
     """
     list of all buttons for drawing/updates
