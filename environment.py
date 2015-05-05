@@ -102,7 +102,7 @@ class ArcticDesertDune(Nature):
     """
     def __init__(self, x, y, window):
         Nature.__init__(self, x, y, window)
-        self.image = pygame.image.load("Images/arcticdesertdune.png")
+        self.image = pygame.image.load("Images/arcticdune.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
