@@ -1,11 +1,8 @@
 """
 Bug Class and the associated group, just to keep things neat
-
-Notes on what i'm doing:
-these take a "window" input so the main function can pass in the current window.
-The ninjas told me to do it last time, makes it applicable to code other than our one specific program i guess.
+Most methods take a "window" input so the main function can pass in the current window.
 """
-# yes, I've checked, these need to be here as well as in main
+
 import pygame
 import random
 from math import sin, cos, hypot, atan2
@@ -14,19 +11,19 @@ from math import sin, cos, hypot, atan2
 class Bug(pygame.sprite.Sprite):
 
     def __init__(self, x, y, window):
-
-        # init method inherited from pygame sprite class
+        """
+        init method inherited from pygame sprite class
+        initializes the genome, position, sprite, and status of the bug
+        """
         # add bug to list of bugs
         pygame.sprite.Sprite.__init__(self, window.model.buglist)
 
-        # base stats/genome (may want to package this as a tuple)
+        # base stats/genome
         self.color = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
         self.fleeing = [random.random(), random.random()]
         self.hunting = [random.random(), random.random()]
         self.fuzz = [random.random(), random.random()]
         self.camelfactor = [random.random(), random.random()]
-        #this will make it so bugs that are colliding don't mate a MILLION TIMES
-        self.readyToMate = 0.0
 
         # derivative stats
         # brighter color means more sexiness
@@ -41,14 +38,16 @@ class Bug(pygame.sprite.Sprite):
         # more fuzz and shorter legs make for a warmer bug
         self.furlength = 3 * max(self.fuzz)
         self.warmth = (max(self.fuzz) - 0.2*max(self.fleeing))
-        if self.warmth < 0: 
+        if self.warmth < 0:
             self.warmth = 0
         # higher camel factor gives bigger tum and more drought resistance
         self.tumlength = 3 *max(self.camelfactor)
+
         # initial position and angle of motion
         self.x = x
         self.y = y
         self.angle = random.randrange(-314, 314)
+
         # the collision requires a sprite for a hitbox.
         # bughitbox.png is an empty transparent image the same size as the bug body.
         self.hitbox = pygame.image.load("Images/bughitbox2.png")
@@ -64,12 +63,15 @@ class Bug(pygame.sprite.Sprite):
         # status
         self.hunger = 1
         self.thirst = 1
+        self.readyToMate = 0.0
 
     def draw(self, window):
+        """
+        draws the bug according to its genome
+        """
         # draw body
-        # the location is [x from left , y from top, width, height]
         pygame.draw.rect(window.view.screen, self.color, [self.x, self.y, self.width, self.height])
-        #draw fuzz
+        # draw fuzz
         pygame.draw.rect(window.view.screen, self.color, [self.x, self.y - self.furlength + 1, 5, self.furlength])
         pygame.draw.rect(window.view.screen, self.color, [self.x + self.width - 5, self.y - self.furlength + 1, 5, self.furlength])
         pygame.draw.rect(window.view.screen, self.color, [self. x - self.furlength + 1, self.y + 7, self.furlength, 9])
@@ -119,7 +121,7 @@ class Bug(pygame.sprite.Sprite):
         """
         bug runs from the nearest predator
         """
-        if len(window.model.rawrlist) > 0:     #if there are any rawrs
+        if len(window.model.rawrlist) > 0:
             dist = 100
             nearest = 0
             for rawr in window.model.rawrlist:
@@ -142,22 +144,25 @@ class Bug(pygame.sprite.Sprite):
             self.y = window.view.height-10
         elif self.y > window.view.height:
             self.y = 60
-        self.yspeed = sin(self.angle/100.0)*self.speed  # update speed
-        self.xspeed = cos(self.angle/100.0)*self.speed  # update speed
+        self.yspeed = sin(self.angle/100.0)*self.speed
+        self.xspeed = cos(self.angle/100.0)*self.speed
         self.x = self.x + self.xspeed
         self.y = self.y + self.yspeed
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
     def freeze(self, window):
-        #print abs(window.model.heat/255 - self.warmth)
+        """
+        Checks environmental temperature
+        bugs have a higher chance of dying if their fur length is too long or too short for the temperature
+        """
         if 0.07*random.random() > abs(window.model.heat/255 - 1 + self.warmth):
             window.model.tempdeaths += 1
             self.kill()
 
     def starve(self, window):
         """
-        updates bug hunger
+        updates bug hunger and thirst
         """
         if self.hunger < 100:
             self.hunger += 0.05
@@ -209,6 +214,10 @@ class Bug(pygame.sprite.Sprite):
 
 
     def colormix (self, mate, n):
+        """
+        determines the color of the offspring of a bug and its mate
+        color can
+        """
         if self.color[n] == mate.color[n]:
             babycolor = self.color[n]
         elif self.color[n] > mate.color[n]:

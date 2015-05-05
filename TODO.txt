@@ -38,6 +38,7 @@ BUGS TO FIX (NOT THE LIL BUGGIES)
 
 
 Discussion
+    Why is main copy still a thing?
 
     What if sexiness for mating were the distance from 0 of the colors, rather than the distance from the background? Camouflage would still be relative to the background.
 
