@@ -57,7 +57,7 @@ class BugButton(Button):
         """
         if player has enough money,
         creates an instance of the bug class at a random point onscreen
-        reduces money by 5
+        reduces money by 10
         """
         if window.model.money >= 10:
             bugs.Bug(random.random()*window.view.width, random.random()*window.view.height, window)
@@ -78,8 +78,8 @@ class NomButton(Button):
     def get_pressed(self, window):
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
-        reduces money by 5
+        creates an instance of the nom class at a random point onscreen
+        reduces money by 10
         """
         if window.model.money >= 10:
             noms.Nom(random.random()*window.view.width, random.random()*window.view.height, window)
@@ -101,8 +101,8 @@ class RawrButton(Button):
 
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
-        reduces money by 5
+        creates an instance of the rawr class at a random point onscreen
+        reduces money by 10
         """
         if window.model.money >= 10:
             rawrs.Rawr(random.random()*window.view.width, random.random()*window.view.height, window)
@@ -123,7 +123,7 @@ class DesertDuneButton(Button):
     def get_pressed(self, window):
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
+        creates an instance of the desert dune class at a random point onscreen
         reduces money by 5
         """
         if window.model.money >= 5:
@@ -145,12 +145,13 @@ class RainforestTreeButton(Button):
     def get_pressed(self, window):
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
+        creates an instance of the rainforest tree class at a random point onscreen
         reduces money by 5
         """
         if window.model.money >= 5:
             environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
             window.model.money -= 5
+
 
 class PuddleButton(Button):
     """
@@ -166,12 +167,13 @@ class PuddleButton(Button):
     def get_pressed(self, window):
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
+        creates an instance of the puddle class at a random point onscreen
         reduces money by 5
         """
         if window.model.money >= 5:
             puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
             window.model.money -= 5
+
 
 class DesertPalmTreeButton(Button):
     """
@@ -187,7 +189,7 @@ class DesertPalmTreeButton(Button):
     def get_pressed(self, window):
         """
         if player has enough money,
-        creates an instance of the bug class at a random point onscreen
+        creates an instance of the desert palm tree class at a random point onscreen
         reduces money by 5
         """
         if window.model.money > 5:
@@ -210,7 +212,7 @@ class DesertHillButton(Button):
         """
         if player has enough money,
         creates an instance of the desert hill class at a random point onscreen
-        reduces money by 25
+        reduces money by 5
         """
         if window.model.money >= 5:
             environment.DesertHill(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
@@ -232,7 +234,7 @@ class ArcticDesertDuneButton(Button):
         """
         if player has enough money,
         creates an instance of the arctic desert dune class at a random point onscreen
-        reduces money by 30
+        reduces money by 5
         """
         if window.model.money >= 5:
             environment.ArcticDesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)

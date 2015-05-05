@@ -8,6 +8,7 @@ RJ
     -Put together poster
     -Print poster
     * make only last ~18 deaths show on stats
+    * put cost of buttons underneath buttons
 
 MC
     -Website
