@@ -38,12 +38,6 @@ class DesertDune(Nature):
         if window.model.wet > 0:
             window.model.wet -= 0.01
 
-    def negeffect(self, window):
-        if window.model.heat > 0:
-            window.model.heat -= 0.05
-        if window.model.wet < 255:
-            window.model.wet += 0.05
-
 class RainforestTree(Nature):
     """
     Rainforest Tree object
@@ -62,11 +56,6 @@ class RainforestTree(Nature):
         if window.model.wet < 255:
             window.model.wet += 0.01
 
-    def negeffect(self, window):
-        if window.model.green > 0:
-            window.model.green -= 0.05
-        if window.model.wet > 0:
-            window.model.wet -= 0.05
 
 class DesertPalmTree(Nature):
     """
@@ -86,11 +75,6 @@ class DesertPalmTree(Nature):
         if window.model.wet > 0:
             window.model.wet -= 0.01
 
-    def negeffect(self, window):
-        if window.model.heat > 0:
-            window.model.heat -= 0.05
-        if window.model.wet < 255:
-            window.model.wet += 0.05
 
 class DesertHill(Nature):
     """
@@ -105,16 +89,29 @@ class DesertHill(Nature):
         self.rect.y = y
 
     def effect(self, window):
+        if window.model.heat < 255:
+            window.model.heat += 0.01
+        if window.model.wet > 0:
+            window.model.wet -= 0.01
+
+
+class ArcticDesertDune(Nature):
+    """
+    Arctic Desert dune object
+    will make the environment colder and drier?
+    """
+    def __init__(self, x, y, window):
+        Nature.__init__(self, x, y, window)
+        self.image = pygame.image.load("Images/arcticdesertdune.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def effect(self, window):
         if window.model.heat > 0:
             window.model.heat -= 0.01
         if window.model.wet > 0:
             window.model.wet -= 0.01
-
-    def negeffect(self, window):
-        if window.model.heat > 0:
-            window.model.heat -= 0.05
-        if window.model.wet < 255:
-            window.model.wet += 0.05
 
 
 class Environ(pygame.sprite.Group):
