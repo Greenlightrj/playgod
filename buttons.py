@@ -53,14 +53,15 @@ class BugButton(Button):
         self.image = pygame.image.load("Images/bugbutton.png")
 
     def get_pressed(self, window):
+
         """
         if player has enough money,
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money >= 5:
+        if window.model.money >= 10:
             bugs.Bug(random.random()*window.view.width, random.random()*window.view.height, window)
-            window.model.money -= 5
+            window.model.money -= 10
 
 
 class NomButton(Button):
@@ -97,14 +98,15 @@ class RawrButton(Button):
         self.image = pygame.image.load("Images/rawrbutton.png")
 
     def get_pressed(self, window):
+
         """
         if player has enough money,
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money >= 15:
+        if window.model.money >= 10:
             rawrs.Rawr(random.random()*window.view.width, random.random()*window.view.height, window)
-            window.model.money -= 15
+            window.model.money -= 10
 
 
 class DesertDuneButton(Button):
@@ -124,9 +126,9 @@ class DesertDuneButton(Button):
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money >= 30:
+        if window.model.money >= 5:
             environment.DesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)
-            window.model.money -= 30
+            window.model.money -= 5
 
 
 class RainforestTreeButton(Button):
@@ -146,9 +148,9 @@ class RainforestTreeButton(Button):
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money >= 30:
+        if window.model.money >= 5:
             environment.RainforestTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
-            window.model.money -= 30
+            window.model.money -= 5
 
 class PuddleButton(Button):
     """
@@ -167,9 +169,9 @@ class PuddleButton(Button):
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money >= 10:
+        if window.model.money >= 5:
             puddles.Puddle(random.randint(0, window.view.width - 60), random.randint(50, window.view.height - 40), window)
-            window.model.money -= 10
+            window.model.money -= 5
 
 class DesertPalmTreeButton(Button):
     """
@@ -188,9 +190,9 @@ class DesertPalmTreeButton(Button):
         creates an instance of the bug class at a random point onscreen
         reduces money by 5
         """
-        if window.model.money > 15:
+        if window.model.money > 5:
             environment.DesertPalmTree(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
-            window.model.money -= 15
+            window.model.money -= 5
 
 
 class DesertHillButton(Button):
@@ -210,9 +212,9 @@ class DesertHillButton(Button):
         creates an instance of the desert hill class at a random point onscreen
         reduces money by 25
         """
-        if window.model.money >= 25:
+        if window.model.money >= 5:
             environment.DesertHill(random.randint(0, window.view.width - 100), random.randint(50, window.view.height - 150), window)
-            window.model.money -= 25
+            window.model.money -= 5
 
 
 class ArcticDesertDuneButton(Button):
@@ -232,9 +234,9 @@ class ArcticDesertDuneButton(Button):
         creates an instance of the arctic desert dune class at a random point onscreen
         reduces money by 30
         """
-        if window.model.money >= 30:
+        if window.model.money >= 5:
             environment.ArcticDesertDune(random.randint(0, window.view.width - 94), random.randint(50, window.view.height - 50), window)
-            window.model.money -= 30
+            window.model.money -= 5
 
 class Buttons (pygame.sprite.Group):
     """
