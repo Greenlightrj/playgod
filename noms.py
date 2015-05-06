@@ -7,11 +7,12 @@ import pygame
 import random
 from math import sin, cos, hypot, atan2
 
+
 class Nom(pygame.sprite.Sprite):
     """
     The food items.
     They spawn at a rate (either determined by the amount of food onscreen or a constant amount)
-    They run away from bugs at a rate 
+    They run away from the nearest bug at a constant rate
     inherited methods:
     .update (see below)
     .kill (removes from all groups)
@@ -19,9 +20,11 @@ class Nom(pygame.sprite.Sprite):
     """
 
     def __init__(self, x, y, window):
+        """
+        inherits draw and grouping methods from pygame sprite parent class
+        initializes position, sprite, and stats
+        """
         pygame.sprite.Sprite.__init__(self, window.model.nomlist)
-        #self.image = window.food
-        #self.rect = self.image.get_rect()
         self.x = x
         self.y = y
         self.angle = random.randint(-314, 314)
@@ -36,12 +39,11 @@ class Nom(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-
     def flee(self, window):
         """
         prey runs from nearest bug
         """
-        if len(window.model.buglist) > 0:     #if there are any bugs
+        if len(window.model.buglist) > 0:   #if there are any bugs
             dist = 100
             nearest = 0
             for bug in window.model.buglist:
@@ -51,7 +53,6 @@ class Nom(pygame.sprite.Sprite):
                         nearest = bug
             if nearest:
                 self.angle = 100*atan2(self.y - nearest.y, self.x - nearest.x)
-
 
     def run(self, window):
         """
@@ -66,24 +67,23 @@ class Nom(pygame.sprite.Sprite):
             self.y = window.view.height-10
         elif self.y > window.view.height:
             self.y = 60
-        self.yspeed = sin(self.angle/100.0)*self.speed  # update speed
-        self.xspeed = cos(self.angle/100.0)*self.speed  # update speed
+        self.yspeed = sin(self.angle/100.0)*self.speed
+        self.xspeed = cos(self.angle/100.0)*self.speed
         self.x = self.x + self.xspeed
         self.y = self.y + self.yspeed
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
-    #def multiply(self, window):
-    #    if len(window.model.nomlist) < 100:
-    #        if random.random() < 0.005:
-    #            Nom(random.randint(0, window.view.width), random.randint(0, window.view.height), window)
-
-
     def update(self, window):
+        """
+        calls methods in the correct order
+        """
         self.flee(window)
         self.run(window)
 
-class NomList(pygame.sprite.Group):    
+
+class NomList(pygame.sprite.Group):
     """
-    all inherited
+    group list of all living noms
+    all methods inherited from pygame sprite group parent class
     """

@@ -169,8 +169,6 @@ class graphs():
 
         self.colorplot(window)
 
-        #deathgraphname = window.view.font.render(("Causes of Death:"), 1, (255, 255, 255))
-        #window.view.screen.blit(deathgraphname, (window.view.width + 14, 565))
         for i in range(0, 6):
             self.drawbar(i, window)
         
