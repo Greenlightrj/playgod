@@ -1,4 +1,8 @@
-
+"""
+Button parent class,
+classes for the types of buttons,
+and group class for all button objects
+"""
 import pygame
 import random
 import bugs
