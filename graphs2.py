@@ -130,6 +130,31 @@ class graphs():
         pygame.draw.rect(window.view.screen, (69, 69, 69), [window.view.width, 0, window.view.graphwidth, window.view.height])
         pygame.draw.line(window.view.screen, (113, 113, 113), (window.view.width, 0), (window.view.width, window.view.height), 4)
 
+    def drawbar(self, deathindex, window):
+        """
+        takes cause of death and draws labeled graph bar in window
+        """
+        deaths = self.deathtracker(window)
+        (color, title, length) = self.deathcolor(deathindex, window)
+        height = 587 + 32*deathindex
+        pygame.draw.rect(window.view.screen, color, [window.view.width + 14, height, length*180.0/deaths, 25])
+        self.write(window, title, (window.view.width + 14, height))
+        if deathindex == 0:
+            self.write(window, 'Causes of Death', (window.view.width + 14, 565))
+
+    def deathcolor(self, deathindex, window):
+        """
+        takes number of cause of death and returns color, title, and bar length as a tuple
+        """
+        deathbook = {2:((0, 170, 0), 'Thirst', window.model.thirsts), 3: ((100, 100, 100)), 4: ((0, 0, 250)), 5: ((250, 0, 0))}
+        deathbook[0] = ((0, 0, 0), 'Starvation', window.model.starves)
+        deathbook[1] = ((170, 170, 0), 'Thirst', window.model.thirsts)
+        deathbook[2] = ((0, 170, 0), 'Rawr', window.model.rawrdeaths)
+        deathbook[3] = ((100, 100, 100), 'Nom', window.model.nomdeaths)
+        deathbook[4] = ((0, 0, 250), "Drowning", window.model.drowns)
+        deathbook[5] = ((250, 0, 0), "Heat", window.model.tempdeaths)
+        return deathbook[deathindex]
+
     def redraw(self, window):
         """
         draws the elements of the graph box
@@ -144,34 +169,9 @@ class graphs():
 
         self.colorplot(window)
 
-        #deaths bar graph
-        deaths = self.deathtracker(window)
-        deathgraphname = window.view.font.render(("Causes of Death:"), 1, (255, 255, 255))
-        window.view.screen.blit(deathgraphname, (window.view.width + 14, 565))
-
-        pygame.draw.rect(window.view.screen, (0, 0, 0), [window.view.width + 14, 587, window.model.starves*180.0/deaths, 25])
-        starve = window.view.font.render(("Starvation"), 1, (255, 255, 255))
-        window.view.screen.blit(starve, (window.view.width + 14, 587))
-
-        pygame.draw.rect(window.view.screen, (170, 170, 0), [window.view.width + 14, 619, window.model.thirsts*180.0/deaths, 25])
-        thirst = window.view.font.render(("Thirst"), 1, (255, 255, 255))
-        window.view.screen.blit(thirst, (window.view.width + 14, 619))
-
-        pygame.draw.rect(window.view.screen, (0, 170, 0), [window.view.width + 14, 651, window.model.rawrdeaths*180.0/deaths, 25])
-        rawr = window.view.font.render(("Rawr"), 1, (255, 255, 255))
-        window.view.screen.blit(rawr, (window.view.width + 14, 651))
-
-        pygame.draw.rect(window.view.screen, (100, 100, 100), [window.view.width + 14, 683, window.model.nomdeaths*180.0/deaths, 25])
-        nom = window.view.font.render(("Nom"), 1, (255, 255, 255))
-        window.view.screen.blit(nom, (window.view.width + 14, 683))
-
-        pygame.draw.rect(window.view.screen, (0, 0, 250), [window.view.width + 14, 715, window.model.drowns*180.0/deaths, 25])
-        drown = window.view.font.render(("Drowning"), 1, (255, 255, 255))
-        window.view.screen.blit(drown, (window.view.width + 14, 715))
-
-        pygame.draw.rect(window.view.screen, (250, 0, 0), [window.view.width + 14, 757, window.model.tempdeaths*180.0/deaths, 25])
-        heat = window.view.font.render(("Heat"), 1, (255, 255, 255))
-        window.view.screen.blit(heat, (window.view.width + 14, 757))
-        #window.draw
-        #text
+        #deathgraphname = window.view.font.render(("Causes of Death:"), 1, (255, 255, 255))
+        #window.view.screen.blit(deathgraphname, (window.view.width + 14, 565))
+        for i in range(0, 6):
+            self.drawbar(i, window)
+        
         self.writestats(window)
