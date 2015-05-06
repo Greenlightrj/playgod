@@ -1,14 +1,18 @@
+"""
+Class to handle all the statistics graphing pane
+"""
+
 import pygame
-"""
-Yes, I could have used a lot more loops and functions to reduce the copypasted stuff in this.
-"""
+
 
 class graphs():
     """
     handles all the stats and graphing
     """
-
     def __init__(self):
+        """
+        initializes counters and lists
+        """
         #counts the number of times this has been called
         self.times = 0
         self.population = [0] * 18
@@ -23,12 +27,16 @@ class graphs():
         self.textlist = []
 
     def write(self, window, text, position):
+        """
+        writes the text string to the window at the given position in white, preloaded font
+        """
         x = window.view.font.render(str(text), 1, (255, 255, 255))
         window.view.screen.blit(x, (position))
 
     def writestats(self, window):
         """
-        displays currency amount, number of living bugs, environment statstffffffffffffffffffffffffft
+        displays currency amount, number of living bugs, and environment stats
+        in the top right corner
         """
         stats = ['Money: $' + str(window.model.money), 'Living Bugs: ' + str(len(window.model.buglist)), 'Heat: ' + str(int(window.model.heat/2.55)) + '%', 'Moisture: ' + str(int(window.model.wet/2.55)) + '%']
         heights = [10, 55, 25, 40]
@@ -50,16 +58,17 @@ class graphs():
         pygame.draw.lines(window.view.screen, (255, 255, 255), False, self.pointlist, 2)
         pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 150), (window.view.drawwidth - 10, 150), 2)
 
-
-
     def getstat(self, bug, statname):
-        statdict = {'Speed:':bug.fleeing, 'Attack/Defense:':bug.hunting, 'Fur:':bug.fuzz, 'Drought Resistance:':bug.camelfactor}
+        """
+        takes the stat name for a given bug and returns the tuple value of that stat
+        """
+        statdict = {'Speed:': bug.fleeing, 'Attack/Defense:': bug.hunting, 'Fur:': bug.fuzz, 'Drought Resistance:': bug.camelfactor}
         return statdict[statname]
 
     def statplot(self, window, statname, height):
         """
-        takes window, bug.stat, and distance from top of screen
-        draws graph
+        takes bug stat, and distance from top of screen
+        draws graph in window
         """
         self.write(window, statname, (window.view.width + 14, height - 55))
         statspread = [0] * 9
@@ -76,12 +85,17 @@ class graphs():
 
 
     def colorplot(self, window):
+        """
+        draws graph of the prevalence of color saturation stats
+        """
         self.redspread = [0] * 9
         self.redlist = [(0,0)] * 9
         self.greenspread = [0] * 9
         self.greenlist = [(0,0)] * 9
         self.bluespread = [0] * 9
         self.bluelist = [(0,0)] * 9
+
+        self.write(window,'Color', (window.view.width + 14, 485))
 
         for bug in window.model.buglist:
             for (num, listy) in [(0, self.redspread), (1, self.greenspread), (2, self.bluespread)]:
@@ -93,10 +107,15 @@ class graphs():
             self.greenlist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.greenspread[i])
             self.bluelist[i] = (window.view.width + 14 + 20 * i, 540 - 2 * self.bluespread[i])
 
+        pygame.draw.lines(window.view.screen, (255, 0, 0), False, self.redlist, 2)
+        pygame.draw.lines(window.view.screen, (0, 255, 0), False, self.greenlist, 2)
+        pygame.draw.lines(window.view.screen, (0, 0, 255), False, self.bluelist, 2)
+        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 540), (window.view.drawwidth - 10, 540), 2)
 
     def deathtracker(self, window):
         """
         calculations for bar graph of cause of bug death
+        returns total number of deaths that have occurred if less than 18
         """
         totaldeath = window.model.starves + window.model.thirsts + window.model.rawrdeaths + window.model.nomdeaths + window.model.drowns + window.model.tempdeaths
         if totaldeath < 18:
@@ -105,6 +124,9 @@ class graphs():
             return totaldeath
 
     def backgroundbox(self, window): 
+        """
+        draws the background box for the graphs pane
+        """
         pygame.draw.rect(window.view.screen, (69, 69, 69), [window.view.width, 0, window.view.graphwidth, window.view.height])
         pygame.draw.line(window.view.screen, (113, 113, 113), (window.view.width, 0), (window.view.width, window.view.height), 4)
 
@@ -114,21 +136,14 @@ class graphs():
         """
         self.backgroundbox(window)
         self.poptracker(window)
-        #average stats graphs
 
         statnames= ['Speed:', "Attack/Defense:", "Fur:", "Drought Resistance:"]
         heights = [220, 300, 380, 460]
         for (statname, height) in zip(statnames, heights):
             self.statplot(window, statname, height)
 
-            #color
         self.colorplot(window)
-        colorname = window.view.font.render(("Color:"), 1, (255, 255, 255))
-        window.view.screen.blit(colorname, (window.view.width + 14, 485))
-        pygame.draw.lines(window.view.screen, (255, 0, 0), False, self.redlist, 2)
-        pygame.draw.lines(window.view.screen, (0, 255, 0), False, self.greenlist, 2)
-        pygame.draw.lines(window.view.screen, (0, 0, 255), False, self.bluelist, 2)
-        pygame.draw.line(window.view.screen, (0, 0, 0), (window.view.width + 14, 540), (window.view.drawwidth - 10, 540), 2)
+
         #deaths bar graph
         deaths = self.deathtracker(window)
         deathgraphname = window.view.font.render(("Causes of Death:"), 1, (255, 255, 255))
