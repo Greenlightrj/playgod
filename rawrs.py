@@ -7,8 +7,10 @@ import pygame
 import random
 from math import sin, cos, hypot, atan2
 
+
 class Rawr(pygame.sprite.Sprite):
     """
+    The ambulatory plants that serve as predators.
     inherited methods:
     _.update() (see below)
     _.kill() (removes from all groups)
@@ -16,6 +18,7 @@ class Rawr(pygame.sprite.Sprite):
     """
     def __init__(self, x, y, window):
         """
+        initializes position, attributes, and sprite
         rawrs start alive with 1 hunger
         """
         pygame.sprite.Sprite.__init__(self, window.model.rawrlist) #puts rawr in list of rawrs
@@ -37,6 +40,9 @@ class Rawr(pygame.sprite.Sprite):
 
 
     def draw(self, window):
+        """
+        draws the rawr in its position on the screen
+        """
         pygame.draw.rect(window.view.screen, [250, 250, 0], [self.x, self.y, 10, 10])
 
 
@@ -86,6 +92,9 @@ class Rawr(pygame.sprite.Sprite):
             self.kill()
 
     def update(self, window):
+        """
+        calls methods in the proper order
+        """
         self.hunt(window)
         self.walk(window)
         self.starve(window)
@@ -93,5 +102,6 @@ class Rawr(pygame.sprite.Sprite):
 
 class RawrList(pygame.sprite.Group):
     """
-    all inherited
+    group list of all living rawrs
+    all methods inherited from pygame sprite group parent class inherited
     """

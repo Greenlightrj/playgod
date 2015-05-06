@@ -11,7 +11,7 @@ from math import sin, cos, hypot, atan2
 class Nom(pygame.sprite.Sprite):
     """
     The food items.
-    They spawn at a rate (either determined by the amount of food onscreen or a constant amount)
+    They spawn at a rate determined by the size of the screen
     They run away from the nearest bug at a constant rate
     inherited methods:
     .update (see below)
