@@ -1,0 +1,56 @@
+Reflection on Design Review
+
+Feedback:
+
+- "I like graphs"
+- option: for people who don't like graphs have a representative creature that represents the average/ represents the extremes/ have both
+- "Pandemic"
+- Level selection
+- World map -> moving around the world
+- choose balance of starting animal
+- species branching off
+	- cool
+	- code
+	- traits that are too different can't breed
+- goal: combine two species
+- sexiness -> result of attributes
+- user side, what would you be doing besides just moving a slider
+- UI: physically manipulate the environment
+- have animals moving randomly
+	- move into food, when they hit chance of interaction
+- AS MUCH INTERACTION AS POSSIBLE
+- squeek
+- choose between natural disasters
+- "geosim": prioritize more biomass, specified development
+
+What we learned:
+	Having as much user interaction as possible is important. The player will quickly get bored if they are only moving a slider. It might be a good idea to have sprites of the enevironment to represent what is going on or have the user actually move the envoironmnet around. It's also very important to have some sort of representation of what the genome of the population currently looks like whether that involves graphs, stats or other forms of visualisation.
+
+Reflection on code review
+
+Feedback:
+
+- mouse down & mouse up to drag and drop
+- traits
+	- envrionments
+		- punish long legedness
+		- encourage diversity w/ environment
+	- chasing noms and running from rawrs both longer legs
+- show evolution somehow
+	- in desert different than in arctic
+- flip sides on rawrs so bugs can't escape off the sides?
+- attributes
+	- temp tolerance
+	- humid tolerance
+	- fight predator
+- user actions
+	- effect composition of population w/ environment, rawr, nom and bug
+- currency
+	- limit # of interaction (maybe just have a fixed number of changes)
+- slider for average toughness?
+- teeth positive or negative based on environment
+- toggle
+
+What we learned:
+	The code review showed that our code itself seemed to be very well orgnaized by having so many different scripts that called each other as this kept everything very organized. The big issue that became very obvious was the balancing within the game. We got several suggestions on how to improve the balancing of the game as some stats (such as leg length) are currently overwhelmingly strong and have no negative effects. Currently the environment itself isn't yet affecting how the bugs evolve so we also got some feedback on what attributes we can add to the bugs to make the environment more relevant so that changing the environment will actually cause the bugs to evolve.
+
